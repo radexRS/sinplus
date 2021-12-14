@@ -1,0 +1,30 @@
+nav {
+    margin: 0 auto;
+    padding: 0 auto;
+    
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+}
+
+ul ul {
+    visibility: hidden;
+}
+
+ul li:hover ul {
+    visibility: visible;
+}
+
+
+a:link, a:hover, a:visited {
+    text-decoration: none;
+    color: #6ACAD8;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    min-width: 100px;
+    text-align: center;
+}

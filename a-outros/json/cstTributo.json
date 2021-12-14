@@ -1,0 +1,47 @@
+[
+    {
+        "tributoCodigo":"00",
+        "descricao":"Tributada integralmente"
+    },
+    {
+        "tributoCodigo":"10",
+        "descricao":"Tributada e com cobrança do ICMS por substituição tributária"
+    },
+    {
+        "tributoCodigo":"20",
+        "descricao":"Com redução da BC"
+    },
+    {
+        "tributoCodigo":"30",
+        "descricao":"Isenta / não tributada e com cobrança do ICMS por substituição tributária"
+    },
+    {
+        "tributoCodigo":"40",
+        "descricao":"Isenta"
+    },
+    {
+        "tributoCodigo":"41",
+        "descricao":"Não tributada"
+    },
+    {
+        "tributoCodigo":"50",
+        "descricao":"Com suspensão"
+    },
+    {
+        "tributoCodigo":"51",
+        "descricao":"Com diferimento"
+    },
+    {
+        "tributoCodigo":"60",
+        "descricao":"ICMS cobrado anteriormente por substituição tributária"
+    },
+    {
+        "tributoCodigo":"70",
+        "descricao":"Com redução da BC e cobrança do ICMS por substituição tributária"
+    },
+    {
+        "tributoCodigo":"90",
+        "descricao":"Outras"
+    }
+
+]

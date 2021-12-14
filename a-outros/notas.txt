@@ -1,0 +1,281 @@
+<%- include ('../partials/top'); %>
+
+<!-- modal -->            
+<div class="modal" tabindex="-1" id="modal-ncm" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Lista NCM</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick=cleanTable()></button>
+        </div>
+        <div id="modal-body" class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick=cleanTable()>Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+        </div>
+    </div>
+    </div>             
+<!-- /modal -->  
+
+<header><%- include ('../partials/navbar'); %></header>
+
+
+    <main class="flex-container direction-column">
+
+        
+        <h1 class="text-center">Cadastro Novo Produto</h1>
+
+      
+        <form action="/product/save" method="POST">
+
+            <div class="form-group">
+                <label for="descricao" class="form-label">NCM - Consulta por descrição </label>
+                <div class="flex-container direction-row">
+                    <div class="btn btn-primary" id="busca-ncm" onclick="buscaNcms(), showModalNcm()">Buscar</div>
+                    <input class="form-control form-control-s" type="text" id="descricao" name="desc" placeholder=""  >
+                </div>
+            </div>
+            
+            <div class="form-group margin-top-10px">
+                <label for="id-ncm" class="form-label">NCM</label>
+                <select  class="form-control form-control-s" id="id-ncm" name="ncmId" required>
+                    <option selected="selected" >Selecione um NCM</option>
+                    <% ncms.forEach(function(ncm){  %>
+                    <option value="<%=ncm.id%>"><%=ncm.ncm%> - <%=ncm.description%></option>
+                    <% }) %>
+                </select>
+            </div>              
+   
+            <div class="form-group">
+                <label for="id-descricao" class="form-label">Descicao do Produto </label>
+                <input class="form-control form-control-s" type="text" id="id-descricao" name="description" placeholder="Informe Descrição do Produto" required>
+            </div>
+            
+            <div class="form-group margin-top-10px">
+                <label for="id-type" class="form-label">Tipo</label>
+                <select  class="form-control form-control-s" id="id-type" name="productTypeId" required>
+                    <option selected="selected" >Selecione um Tipo de Produto</option>
+                    <% productTypes.forEach(function(productType){  %>
+                    <option value="<%=productType.id%>"><%=productType.productType%></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="id-referencia" class="form-label">Referencia</label>
+                <input class="form-control form-control-s" type="text" id="id-referencia" name="reference" placeholder="Informe Referencia do Produto" required>
+            </div>            
+
+            <div class="form-group">
+                <label for="id-custo" class="form-label">Preço de Custo</label>
+                <input class="form-control form-control-s" type="number"  step="any" id="id-custo" name="cost" placeholder="Informe Custo do Produto" required>
+            </div>                    
+
+            <div class="form-group">
+                <label for="id-preco" class="form-label">Preço de Venda</label>
+                <input class="form-control form-control-s" type="number"  step="any" id="id-preco" name="cost" placeholder="Informe Preço de Venda para Produto" required>
+            </div>        
+
+            <div class="form-group margin-top-10px">
+                <label for="id-unity" class="form-label">Unidade de Medida</label>
+                <select  class="form-control form-control-s" id="id-unity" name="unityId" required>
+                    <option selected="selected" >Selecione uma unidade de Produto</option>
+                    <% unities.forEach(function(unity){  %>
+                    <option value="<%=unity.id%>"><%=unity.unity%> - <%=unity.description%></option>
+                    <% }) %>
+                </select>
+            </div>  
+
+            <div class="form-group margin-top-10px">
+                <label for="id-size" class="form-label">Tamanho do Produto</label>
+                <select  class="form-control form-control-s" id="id-size" name="sizeId" required>
+                    <option selected="selected" >Selecione um tamanho de produto</option>
+                    <% sizes.forEach(function(size){  %>
+                    <option value="<%=size.id%>"><%=size.size%> - <%=size.description%></option>
+                    <% }) %>
+                </select>
+            </div>                      
+
+            <div class="form-group margin-top-10px">
+                <label for="id-fiscalOperation" class="form-label">Selecione uma Operação Fiscal</label>
+                <select  class="form-control form-control-s" id="id-fiscalOperation" name="fiscalOperationId" required>
+                    <option selected="selected" >Selecione uma Operação Fiscal</option>
+                    <% fiscalOperations.forEach(function(fiscalOperation){  %>
+                    <option value="<%=fiscalOperation.id%>"><%=fiscalOperation.fiscalOperation%></option>
+                    <% }) %>
+                </select>
+            </div>              
+
+                        
+
+            <div class="form-group base-line margin-top-10px"> 
+                
+                <input class="button margin-left-30-por btn btn-primary" type="submit" value="Salvar">
+                
+            </div>
+    
+        </form>    
+        
+              
+    </main>
+
+    <article> <%- include ('../partials/menuProduct.ejs'); %></article>
+
+
+
+
+
+<%- include ('../partials/footer'); %>
+
+<%- include ('../partials/down'); %>
+<script>
+
+function ajax(config) {       
+    
+    const xhr = new XMLHttpRequest()
+    xhr.open(config.metodo, config.url, true)
+    xhr.onload = e => {
+            if (xhr.status === 200) {
+                config.sucesso(xhr.response)
+            } else if (xhr.status >= 400) {
+                config.erro({
+                    code: xhr.status,
+                    text: xhr.statusText
+                })
+            }
+        }
+        xhr.send()
+    
+}    
+
+  
+
+function criarTabela(ncms) {
+
+
+    const linhas = ncms.map(ncm => {
+            
+    const tdCodigo = document.createElement('td')
+    tdCodigo.innerHTML = ncm.Codigo
+    tdCodigo.setAttribute("scope", "row")
+
+    const tdDescricao = document.createElement('td')
+    tdDescricao.innerHTML = ncm.Descricao
+    tdDescricao.setAttribute("scope", "row")
+
+    const tdAnoato = document.createElement('td')
+    tdAnoato.innerHTML = ncm.Ano_Ato
+    tdAnoato.setAttribute("scope", "row")
+
+    const tr = document.createElement('tr')
+    
+    tr.appendChild(tdCodigo)
+    tr.appendChild(tdAnoato)
+    tr.appendChild(tdDescricao)
+    
+    return tr
+        
+    })
+
+    
+        
+    // Cria Table
+    const tabela = document.createElement('table')
+
+    // Cria Thead
+    const cabeca = document.createElement('thead')
+
+    // ( linha 1 Cria ths ) ( linha 2 insere html na tag th ) ( linha 3 seta cria atributo e valor para th )     
+    const thCodigo = document.createElement('th')
+    thCodigo.innerHTML = "Código"
+    thCodigo.setAttribute("scope", "col")
+
+    // ( linha 1 Cria ths ) ( linha 2 insere html na tag th ) ( linha 3 seta cria atributo e valor para th ) 
+    const thAnoato = document.createElement('th')
+    thAnoato.innerHTML = "Ano"
+    thAnoato.setAttribute("scope", "col")
+    
+    // ( linha 1 Cria ths ) ( linha 2 insere html na tag th ) ( linha 3 seta cria atributo e valor para th ) 
+    const thDescricao = document.createElement('th')
+    thDescricao.innerHTML = "Descrição"
+    thDescricao.setAttribute("scope", "col")
+
+    // Acrecenta th dentro de thead para cada linha
+    cabeca.appendChild(thCodigo)
+    cabeca.appendChild(thAnoato)
+    cabeca.appendChild(thDescricao)
+
+    // Acrecenta  thead na table
+    tabela.appendChild(cabeca)
+
+    //Cria Tbody
+    const corpo = document.createElement('tbody')
+    
+    // Acrecenta tbody em table
+    tabela.appendChild(corpo)
+
+
+
+    linhas.forEach(linha => corpo.appendChild(linha))   
+
+
+
+    document.getElementById("modal-body").appendChild(tabela)
+    
+    // Atribui Id para tabela[0]
+    tabela.id = 'tabela'
+    
+    // Cria atributo class com valor table table-hover para tabela
+    var t = document.querySelector("table")
+    t.setAttribute("class", "table table-hover")
+
+                
+}
+
+
+function buscaNcms(){
+
+    event.preventDefault()
+    
+    let descricao = document.getElementById("descricao").value   
+
+    ajax({
+        url: `http://localhost:3000/ncms/?descricao=${descricao}`,
+        metodo: "get",
+        sucesso(resposta){
+            const ncms = JSON.parse(resposta)
+            console.log("sucesso resosta Ncms", ncms)
+            criarTabela(ncms)
+
+            
+        },
+        erro(e) {
+            const msg = document.createTextNode(`${e.code}: ${e.text}`)
+            document.body.appendChild(msg)
+        }
+    })
+}
+
+    </script>
+
+    <script>
+        function cleanTable (){
+
+            document.getElementById("tabela").outerHTML = "";
+        }
+    </script>
+
+    <script>
+        function showModalNcm () {  
+            let el = document.getElementById('modal-ncm')
+            let modal = new bootstrap.Modal(el)
+            modal.show()
+         }
+    </script>
+
+<!-- 
+var h = document.getElementById("myH2");
+h.insertAdjacentHTML("afterbegin", "<p>My new paragraph</p>");  -->
