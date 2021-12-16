@@ -1,11 +1,11 @@
-const Unity = require('../entity/Unity')
+const Unidade = require('../entity/Unidade')
 
-class UnityDAO{
+class UnidadeDAO{
 
-    async create(unity, description, status) {
+    async create(unidade, description, status) {
         
         try{
-            await Unity.create({unity, description, status})
+            await Unidade.create({unidade, description, status})
             return true
         }
         catch(error){
@@ -14,9 +14,9 @@ class UnityDAO{
 }
 
 
-    async update(id, unity, description, status) {
+    async update(id, unidade, description, status) {
         try{
-            await Unity.update({ unity, description, status }, { where: { id: id } })
+            await Unidade.update({ unidade, description, status }, { where: { id: id } })
             return true
         }
         catch(error){
@@ -27,7 +27,7 @@ class UnityDAO{
 
     async delete(id) {  //id de req.params.id
         try{
-            await Unity.destroy({ where: { id: id } })
+            await Unidade.destroy({ where: { id: id } })
             return true
         }
         catch(error){
@@ -38,7 +38,7 @@ class UnityDAO{
 
     async getOne(id) {
         try{
-            return await Unity.findByPk(id)
+            return await Unidade.findByPk(id)
         }
         catch(error){
             return null
@@ -49,7 +49,7 @@ class UnityDAO{
 
     async getAll() {
         try{
-            return await Unity.findAll()
+            return await Unidade.findAll()
         }
         catch(error){
             return null
@@ -59,4 +59,4 @@ class UnityDAO{
 }
 
 
-module.exports = UnityDAO
+module.exports = UnidadeDAO

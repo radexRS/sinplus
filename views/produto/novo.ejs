@@ -1,6 +1,6 @@
 <%- include ('../partials/top'); %>
 
-<header><%- include ('../partials/navbar'); %></header>
+<header><%- include ('../partials/menuProduto'); %></header>
 
 <!-- modal -->            
 <div class="modal" tabindex="-1" id="modal-ncm" data-bs-backdrop="static">
@@ -29,7 +29,7 @@
 
         <div class="boxNewProduct">
               
-        <form action="/product/save" method="POST" class="product needs-validation" novalidate>
+        <form action="/produto/save" method="POST" class="product needs-validation" novalidate>
                 
             <div class="input-group  mb-3 ">
                 <span class="input-group-text bg-color-button-busca-ncm" onclick="buscaNcms(), showModalNcm()">Consulta NCM </span>
@@ -47,11 +47,11 @@
                 <select  class="form-select" id="id-cfop" name="cfop" required>  
                     <% cfops.forEach(function(cfop){ if (cfop.cfop == "5102") { %>
 
-                        <option value="<%=cfop.cfop%>" selected ><%=cfop.cfop%> - <%=cfop.description%></option>
+                        <option value="<%=cfop.cfop%>" selected ><%=cfop.cfop%> - <%=cfop.descricao_aplicacao%></option>
 
                     <% } else { %>
 
-                        <option value="<%=cfop.cfop%>"><%=cfop.cfop%> - <%=cfop.description%></option>
+                        <option value="<%=cfop.cfop%>"><%=cfop.cfop%> - <%=cfop.descricao_aplicacao%></option>
                     <% } %>
 
                     <% }) %>
@@ -77,19 +77,19 @@
             
             <div class="input-group  mb-3">
                 <span class="input-group-text">Descição do Produto </span>
-                <input class="form-control" type="text" id="id-description" name="description" placeholder="Descição Nota de Origem" required>
+                <input class="form-control" type="text" id="id-description" name="descricao" placeholder="Descição Nota de Origem" required>
             </div>
 
             <div class="input-group  mb-3">
                 <span class="input-group-text">Unidade de Medida</span>
-                <select  class="form-select" id="id-unity" name="unityId" required>
-                    <% unities.forEach(function(unity){ if (unity.unity == "UNID") { %>
+                <select  class="form-select" id="id-unidade" name="unidadeId" required>
+                    <% unidades.forEach(function(unidade){ if (unidade.unidade == "UNID") { %>
 
-                        <option value="<%=unity.id%>" selected ><%=unity.unity%> - <%=unity.description%></option>
+                        <option value="<%=unidade.id%>" selected ><%=unidade.unidade%> - <%=unidade.description%></option>
 
                     <% } else { %>
 
-                        <option value="<%=unity.id%>"><%=unity.unity%> - <%=unity.description%></option>
+                        <option value="<%=unidade.id%>"><%=unidade.unidade%> - <%=unidade.description%></option>
                     <% } %>
 
                     <% }) %>
@@ -98,9 +98,9 @@
 
             <div class="input-group  mb-3">
                 <span class="input-group-text">Preço de Custo</span>
-                <input class="form-control" type="number"  step="any" id="id-custo" name="cost" required>
+                <input class="form-control" type="number"  step="any" id="id-custo" name="custo" required>
                 <span  class="input-group-text">Preço de Venda</span>
-                <input class="form-control" type="number"  step="any" id="id-preco" name="price" required>
+                <input class="form-control" type="number"  step="any" id="id-preco" name="preco" required>
             </div>                    
                        
             <div class="col-12"> 

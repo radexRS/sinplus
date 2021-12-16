@@ -1,4 +1,4 @@
-<%- include ('../partials/topProducts'); %>
+<%- include ('../partials/top'); %>
 
 <header><%- include ('../partials/navbar'); %></header>
 
@@ -9,20 +9,20 @@
         <h1 class="text-center">CADASTRO DE PRODUTO</h1>
 
       
-        <form action="/product/edit" method="POST">
+        <form action="/produto/edit" method="POST">
     
             <div class="input-group mb-3">
                 <span  class="input-group-text">Registro de Produto</span>
-                <input class="form-control" type="text" id="id-produto" readonly name="id" value="<%=product.id%>" required>
+                <input class="form-control" type="text" id="id-produto" readonly name="id" value="<%=produto.id%>" required>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Descrição do Produto</span>
-                <input class="form-control" type="text" id="id-description" name="description" value="<%=product.description%>" required>
+                <input class="form-control" type="text" id="id-description" name="descricao" value="<%=produto.descricao%>" required>
             </div>               
             <div class="input-group mb-3">
                 <span class="input-group-text">Código NCM</span>
-                <input class="form-control" type="text" id="id-description" name="ncm" value="<%=product.ncm%>" required>
+                <input class="form-control" type="text" id="id-description" name="ncm" value="<%=produto.ncm%>" required>
             </div>                
 
             <div class="input-group mb-3">
@@ -30,11 +30,11 @@
                 <select  class="form-select" id="id-cfop" name="cfop" >
                     
                     <% cfops.forEach(function(cfop){ 
-                        if (cfop.cfop == product.cfop) {%>
-                                <option selected="selected" value="<%=cfop.cfop%>"><%=cfop.cfop%></option>
+                        if (cfop.cfop == produto.cfop) {%>
+                                <option selected="selected" value="<%=cfop.cfop%>"><%= cfop.cfop %> - <%= cfop.descricao_aplicacao%></option>
                             <% } 
                             else { %>
-                                <option value="<%=cfop.cfop%>"><%=cfop.cfop%></option>
+                                <option value="<%=cfop.cfop%>"><%= cfop.cfop %> - <%= cfop.descricao_aplicacao%></option>
                             <% } %>
                     <% }) %>
 
@@ -46,11 +46,11 @@
                 <select  class="form-select" id="id-csosn" name="csosn" >
                     
                     <% csosns.forEach(function(csosn){ 
-                        if (csosn.csosn == product.csosn) {%>
-                                <option selected="selected" value="<%=csosn.csosn%>"><%=csosn.csosn%></option>
+                        if (csosn.csosn == produto.csosn) {%>
+                                <option selected="selected" value="<%=csosn.csosn%>"><%= csosn.csosn %> - <%= csosn.descricao %></option>
                             <% } 
                             else { %>
-                                <option value="<%=csosn.csosn%>"><%=csosn.csosn%></option>
+                                <option value="<%=csosn.csosn%>"><%= csosn.csosn %> - <%=  csosn.descricao %></option>
                             <% } %>
                     <% }) %>
                     
@@ -60,25 +60,25 @@
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Custo R$: </span>
-                <input class="form-control" type="number" step="any" id="id-cost" name="cost" value="<%=product.cost%>" required>
+                <input class="form-control" type="number" step="any" id="id-cost" name="custo" value="<%=produto.custo%>" required>
             </div>           
             
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Preço de Venda R$: </span>
-                <input class="form-control" type="number" step="any" id="id-price" name="price" value="<%=product.price%>" required>
+                <input class="form-control" type="number" step="any" id="id-price" name="preco" value="<%=produto.preco%>" required>
             </div>     
 
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Unidade de Medida</span>
-                <select  class="form-select" id="id-unity" name="unityId" >
-                    <% unities.forEach(function(unity){ 
-                        if (product.unityId == unity.id) {%>
-                                <option selected="selected" value="<%=unity.id%>"><%=unity.unity%></option>
+                <select  class="form-select" id="id-unity" name="unidadeId" >
+                    <% unidades.forEach(function(unidade){ 
+                        if (produto.unidadeId == unidade.id) {%>
+                                <option selected="selected" value="<%=unidade.id%>"><%=unidade.unidade%></option>
                             <% } 
                             else { %>
-                                <option value="<%=unity.id%>"><%=unity.unity%></option>
+                                <option value="<%=unidade.id%>"><%=unidade.unidade%></option>
                             <% } %>
                     <% }) %>
 
@@ -87,8 +87,8 @@
 
             <div class="input-group mb-3">
                 <span class="input-group-text">Status Produto</span>
-                <select  class="form-select" id="id-product-status" name="status" >
-                    <% if(product.status==true) { %>
+                <select  class="form-select" id="id-produto-status" name="status" >
+                    <% if(produto.status==true) { %>
                         <option value=1 selected>Válido</option>
                         <option value=0>Inválido</option>
                     <% }
@@ -111,7 +111,6 @@
               
     </main>
 
-    <article> <%- include ('../partials/menuFiscal.ejs'); %></article>
 
     <%- include ('../partials/footer'); %>
 

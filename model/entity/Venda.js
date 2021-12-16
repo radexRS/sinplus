@@ -1,7 +1,8 @@
 const  Sequelize = require('sequelize')
-const Unity = require('./Unity')
+const Empresa = require('./Empresa')
+const Usuario = require('./Usuario')
 
-class Product extends Sequelize.Model {
+class Venda extends Sequelize.Model {
 
         static init(sequelize) {
             super.init(
@@ -12,28 +13,22 @@ class Product extends Sequelize.Model {
                         autoIncrement: true
                     },
 
-                    ncm: {
-                        type: Sequelize.STRING
-                    },   
+                                        
+                    naturezaOp: {
+                        type: Sequelize.BOOLEAN,
+                        defaultValue: true
+                    },
 
-                    cfop: {
-                        type: Sequelize.STRING
-                    },   
-
-                    csosn: {
-                        type: Sequelize.STRING
-                    },   
-
-                    description: {
+                    formaPagamento: {
                         type: Sequelize.STRING,
                         unique: true
                     },                 
 
-                    cost: {
+                    total: {
                         type: Sequelize.FLOAT
                     },                    
                     
-                    price: {
+                    preco: {
                         type: Sequelize.FLOAT
                     },
                     
@@ -44,21 +39,24 @@ class Product extends Sequelize.Model {
                 },
                 {
                     sequelize,
-                    modelName: 'product',
+                    modelName: 'venda',
                     freezeTableName: true
                 }
 
             )
 
-            Product.relations()
+            Venda.relations()
         }
 
         static relations(){
             
-            Unity.hasOne(Product)
-            Product.belongsTo(Unity)
+            Usuario.hasOne(Venda)
+            Venda.belongsTo(Usuario)
+
+            Empresa.hasMany(Venda)
+            Venda.belongsTo(Empresa)
 
         }
 }
 
-module.exports = Product
+module.exports = Venda

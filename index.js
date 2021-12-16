@@ -16,13 +16,13 @@ const csosnController = require('./controller/csosnController')
 // const enderecoController = require('./controller/enderecoControler')
 
 
-const unityController = require('./controller/unityController')
+const unidadeController = require('./controller/unidadeController')
 
 const ncmsController = require('./controller/ncmsController')
 
-const productController = require('./controller/productController')
+const produtoController = require('./controller/produtoController')
 
-const saleController = require('./controller/saleController')
+const vendaController = require('./controller/vendaController')
 
 const empresaController = require('./controller/empresaController')
                         
@@ -50,10 +50,10 @@ app.use(admController,
         cfopAllController,
         csosnController,
         empresaController,
-        unityController,
+        unidadeController,
         ncmsController,
-        productController,
-        saleController)
+        produtoController,
+        vendaController)
 
 app.listen(3000, () => {
     console.log('Aplicação em execução na porta 3000.')

@@ -27,13 +27,13 @@ class Empresa extends Sequelize.Model {
 
                     cnpj: 
                     {
-                        type: Sequelize.INTEGER,
+                        type: Sequelize.BIGINT,
                         unique: true
                     },
 
                     ie: 
                     {
-                        type: Sequelize.INTEGER,
+                        type: Sequelize.BIGINT,
                         unique: true
                     },
 
