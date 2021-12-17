@@ -4,88 +4,51 @@
  
 
 
-    <main class="flex-container direction-column">
+<main class="flex-container direction-column">
 
-        <h1 class="text-center">CADASTRO DE EMPRESA</h1> 
+         
+    <h1 class="text-center">RELAÇÃO DE EMPRESAS</h1>
 
-        <div class="boxNewEmpresa">
+  
+    <table class="table table-hover">
+        <thead>
+            <th scope="col">ID</th>
+            <th scope="col">RAZÃO SOCIAL</th>
+            <th scope="col">FANTASIA</th>
+            <th scope="col">CNPJ</th>
+            <th scope="col">INSC. ESTADUAL</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">CSOSN</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Deletar</th>
 
-              
-        <form action="/empresa/save" method="POST" class="empresa needs-validation" novalidate>
-                
-          
-            <div class="input-group  mb-3">
-                <span class="input-group-text bg-color-ncm">Razão Social</span>
-                <input class="form-control" type="text" id="id-razao" name="razao" value="" placeholder="Informe Razão Social" autofocus required>
-            </div>
+        </thead>
+        <tbody>  
 
-        
-            
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Nome Fantasia </span>
-                <input class="form-control" type="text" id="id-fantasia" name="fantasia" value="" placeholder="Informe Nome Fantasia" required>
-            </div>
+    <% empresas.forEach(function(empresa){  %>
 
-        
-
-            <div class="input-group  mb-3">
-                <span class="input-group-text">CNPJ</span>
-                <input class="form-control" type="number"  step="1" id="id-cnpj" name="cnpj" value="" required>
-                <span  class="input-group-text">Insc. Estadual</span>
-                <input class="form-control" type="number"  step="1" id="id-ie" name="ie" value="" required>
-            </div>                   
-            
-            
-
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Código CSOSN</span>
-                <select  class="form-select" id="id-csosn" name="csosnId" required>  
-                    <option selected value=""></option>
-                    <% csosns.forEach(function(csosn){  %>
-
-                        <option value="<%=csosn.id%>"><%=csosn.csosn%> - <%=csosn.descricao%></option>
+            <tr>
+                <td><%=empresa.id%></td>
+                <td><%=empresa.razao%></td>
+                <td><%=empresa.fantasia%></td>
+                <td><%=empresa.cnpj%></td>
+                <td><%=empresa.ie%></td>
+                <td><%=empresa.status%></td>
+                <td><%=empresa.csosn.csosn%></td>
 
 
-                    <% }) %>
-                </select>
-               
-            </div>
-            
-
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Endereço </span>
-                <input class="form-control" type="text" id="id-logradouro" name="logradouro" value="" placeholder="Informe nome da rua ou logradouro" required>
-            </div>
-
-
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Número </span>
-                <input class="form-control" type="text" id="id-numero" name="numero" value="" placeholder="Informe número" required>
-                <span class="input-group-text">CEP </span>
-                <input class="form-control" type="text" id="id-cep" name="cep" value=""  placeholder="Informe CEP" required>
-            </div>
-
-
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Bairro </span>
-                <input class="form-control" type="text" id="id-bairro" name="bairro" value="" placeholder="Informe bairro" required>
-                <span class="input-group-text">Município </span>
-                <input class="form-control" type="text" id="id-municipio" name="municipio" value="" placeholder="Informe município" required>
-            </div>
-
-
-                       
-            <div class="col-12"> 
-                <input class="button btn btn-sm btn-primary" type="submit" value="Salvar">
-                <input class="button btn btn-sm btn-secondary" type="reset" value="Limpar">
-                
-            </div>
-    
-        </form>    
-        
-    </div>
-      
-    </main>
+                <td class="ta-center"><a class="font-awesome color-edit" href="/empresa/edit/<%=empresa.id%>" 
+                    ata-toggle="tooltip" title="Editar Unidade"></a></td>
+                <td class="ta-center"><a class="font-awesome color-delete" href="/empresa/excluir/<%=empresa.id%>" 
+                    ata-toggle="tooltip" title="Excluir CFOP"
+                    onclick="return confirm('Confirmar a Exclusão?')"></a></td>                                       
+            </tr>
+            </tr>
+    <% }) %>
+        </tbody>
+    </table>
+  
+</main>
 
 
 

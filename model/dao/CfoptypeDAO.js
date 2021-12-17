@@ -1,11 +1,11 @@
-const CfopTypeType = require('../entity/CfopTypeType')
+const CfopTipoTipo = require('../entity/CfopTipoTipo')
 
-class CfopTypeDAO{
+class CfopTipoDAO{
 
 
     async getOne(id) {
         try{
-            return await CfopType.findByPk(id)
+            return await CfopTipo.findByPk(id)
         }
         catch(error){
             return null
@@ -16,7 +16,7 @@ class CfopTypeDAO{
 
     async getAll() {
         try{
-            return await CfopType.findAll()
+            return await CfopTipo.findAll()
         }
         catch(error){
             return null
@@ -27,4 +27,4 @@ class CfopTypeDAO{
 
 }
 
-module.exports = CfopTypeDAO
+module.exports = CfopTipoDAO

@@ -75,10 +75,10 @@
                 <select  class="form-select" id="id-unity" name="unidadeId" >
                     <% unidades.forEach(function(unidade){ 
                         if (produto.unidadeId == unidade.id) {%>
-                                <option selected="selected" value="<%=unidade.id%>"><%=unidade.unidade%></option>
+                                <option selected="selected" value="<%=unidade.id%>"><%=unidade.unidade%> - <%=unidade.descricao%></option>
                             <% } 
                             else { %>
-                                <option value="<%=unidade.id%>"><%=unidade.unidade%></option>
+                                <option value="<%=unidade.id%>"><%=unidade.unidade%> - <%=unidade.descricao%></option>
                             <% } %>
                     <% }) %>
 

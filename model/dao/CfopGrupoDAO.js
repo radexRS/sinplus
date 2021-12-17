@@ -1,11 +1,11 @@
-const CfopGroup = require('../entity/CfopGroup')
+const CfopGrupo = require('../entity/CfopGrupo')
 
-class CfopGroupDAO{
+class CfopGrupoDAO{
 
 
     async getOne(id) {
         try{
-            return await CfopGroup.findByPk(id)
+            return await CfopGrupo.findByPk(id)
         }
         catch(error){
             return null
@@ -16,7 +16,7 @@ class CfopGroupDAO{
 
     async getAll() {
         try{
-            return await CfopGroup.findAll()
+            return await CfopGrupo.findAll()
         }
         catch(error){
             return null
@@ -27,4 +27,4 @@ class CfopGroupDAO{
 
 }
 
-module.exports = CfopGroupDAO
+module.exports = CfopGrupoDAO

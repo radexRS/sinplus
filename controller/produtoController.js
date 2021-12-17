@@ -62,6 +62,7 @@ routes.post('/produto/save', autorizacao, async (req, res) => {
 routes.get('/produto/edit/:id', autorizacao, async (req, res) => {
 
     let id = req.params.id
+    
     let produtoDAO = new ProdutoDAO()
     let produto = await produtoDAO.getOne(id)
 

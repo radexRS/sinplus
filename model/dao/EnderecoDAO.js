@@ -17,7 +17,7 @@ class EnderecoDAO{
 
 async update(id, logradouro, numero, bairro, municipio, cep) {
     try{
-        await Endereco.update({ logradouro, numero, bairro, municipio, cep }, { where: { id: id } })
+        await Endereco.update({ logradouro, numero, bairro, municipio, cep }, { where: { id: id} })
         return true
     }
     catch(error){

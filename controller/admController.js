@@ -6,6 +6,9 @@ const routes = express.Router()
 const Usuario = require('../model/entity/Usuario')
 const UsuarioDAO = require('../model/dao/UsuarioDAO')
 
+const Csosn = require('../model/entity/Csosn')
+const CsosnDAO = require('../model/dao/CsosnDAO')
+
 const Empresa  = require('../model/entity/Empresa')
 const EmpresaDAO = require('../model/dao/EmpresaDAO')
 
@@ -61,5 +64,6 @@ routes.post('/empresaUsuario/save', admin, async (req, res) => {
     
 
 })
+
 
 module.exports = routes

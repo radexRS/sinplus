@@ -1,6 +1,6 @@
 const  Sequelize = require('sequelize')
 
-class CfopType extends Sequelize.Model {
+class CfopGrupo extends Sequelize.Model {
 
         static init(sequelize) {
             super.init(
@@ -18,6 +18,11 @@ class CfopType extends Sequelize.Model {
                         type: Sequelize.INTEGER
                     },
 
+                    grupo: 
+                    {
+                        type: Sequelize.INTEGER
+                    },
+
                     descricao: 
                     {
                         type: Sequelize.STRING
@@ -31,7 +36,7 @@ class CfopType extends Sequelize.Model {
                 },
                 {
                     sequelize,
-                    modelName: 'cfopType',
+                    modelName: 'cfopGrupo',
 
                     freezeTableName: true,
                     timestamps: false,
@@ -42,5 +47,5 @@ class CfopType extends Sequelize.Model {
             )
         }
     }
-module.exports = CfopType
+module.exports = CfopGrupo
 

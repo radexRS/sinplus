@@ -13,22 +13,129 @@ const Empresa = require('../model/entity/Empresa')
 const EmpresaDAO = require('../model/dao/EmpresaDAO')
 
 
-// const { Sequelize, sequelize } = require('sequelize')
-
 const { Sequelise, sequelize} = require('../models')
 
-//const { Transaction, where } = require('sequelize')
+const { Transaction, where } = require('sequelize')
 
 const { Op } = require("sequelize");
 
 
-
 routes.get('/empresa', admin, async (req, res) => {
+
+  let empresaDAO = new EmpresaDAO()
+  let empresas = await empresaDAO.getAll()
+  res.render('empresa/empresa', {msg: '', empresas: empresas, usuario: req.session.usuario})
+})
+
+
+routes.get('/empresa/edit/:id', admin, async (req, res) => {
+
+  let id = req.params.id
+
+  let csosnDAO = new CsosnDAO()
+  let csosns = await csosnDAO.getAll()
+
+  let enderecoDAO = new EnderecoDAO()
+  let enderecos = await enderecoDAO.getAll()
+    
+  let empresaDAO = new EmpresaDAO()
+  let empresa = await empresaDAO.getOne(id)
+
+  res.render('empresa/edit', {csosns: csosns, enderecos: enderecos, empresa: empresa, usuario: req.session.usuario})
+
+})
+
+
+routes.post('/empresa/edit', admin, async (req, res) => {
+
+  let { id, razao, fantasia, cnpj, ie, status, enderecoId, csosnId, logradouro, numero, bairro, municipio, cep  } = req.body
+  
+  parseInt(id)
+  parseInt(cnpj)
+  parseInt(ie)
+  parseInt(csosnId)
+  parseInt(enderecoId)
+  parseInt(status)
+  
+  console.log("enderecoId: ", enderecoId)
+ 
+ 
+       
+    //  let empresaDAO = new EmpresaDAO()
+    //  let empresa = await empresaDAO.update(id, razao, fantasia, cnpj, ie, status, csosnId )
+    
+     const t = await sequelize.transaction();
+
+     try {  
+         
+       await Empresa.update( {   
+           razao: razao,
+           fantasia: fantasia,
+           cnpj: cnpj,
+           ie: ie,
+           status: status,
+           csosnId: csosnId  
+         }, { where: { id: id} },{transaction: t})
+
+      await Endereco.update( {
+          logradouro: logradouro, 
+          numero: numero, 
+          bairro: bairro, 
+          municipio, municipio,
+          cep: cep,
+        }, { where: {id: enderecoId} }, {transaction: t})         
+     
+          await t.commit()
+     
+      let empresaDAO = new EmpresaDAO()
+      let empresas = await empresaDAO.getAll()
+      
+      res.render('empresa/empresa', {empresas: empresas, msg: 'Empresa Alterada com Sucesso!', usuario: req.session.usuario })
+     
+       } catch (error) {
+
+         await t.rollback()
+
+        let empresaDAO = new EmpresaDAO()
+        let empresas = await empresaDAO.getAll() 
+        
+        res.render('empresa/empresa', {empresas: empresas, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
+             
+       } // Fim catch
+
+
+
+
+
+
+    // if (empresa) {
+
+    //   let empresaDAO = new EmpresaDAO()
+    //   let empresas = await empresaDAO.getAll()
+      
+    //   res.render('empresa/empresa', {empresas: empresas, msg: 'Empresa Alterada com Sucesso!', usuario: req.session.usuario })
+    // }
+    //   else {
+
+    //     let empresaDAO = new EmpresaDAO()
+    //     let empresas = await empresaDAO.getAll() 
+        
+    //     res.render('empresa/empresa', {empresas: empresas, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
+    //   }
+
+   
+        
+     
+
+
+})
+
+routes.get('/empresa/nova', admin, async (req, res) => {
 
     let csosnDAO = new CsosnDAO()
     let csosns = await csosnDAO.getAll()
     
-  res.render('empresa/empresa', {msg: '', csosns: csosns, usuario: req.session.usuario})
+  res.render('empresa/nova', {msg: '', csosns: csosns, usuario: req.session.usuario})
 })
 
 
@@ -72,8 +179,7 @@ try {
 
   } catch (error) {
         await t.rollback()
-        console.log(error.toString());
-
+       
         let csosnDAO = new CsosnDAO()
         let csosns = await csosnDAO.getAll()
    

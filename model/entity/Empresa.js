@@ -58,10 +58,10 @@ class Empresa extends Sequelize.Model {
 
         
         static relations(){
-            Endereco.hasOne(Empresa, {  onDelete: 'RESTRICT',  onUpdate: 'CASCADE'})    
+            Endereco.hasOne(Empresa)    
             Empresa.belongsTo(Endereco) 
             
-            Csosn.hasOne(Empresa, {  onDelete: 'RESTRICT',  onUpdate: 'CASCADE'})
+            Csosn.hasOne(Empresa)
             Empresa.belongsTo(Csosn)
             
         }

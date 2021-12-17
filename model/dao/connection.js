@@ -2,8 +2,8 @@ const Sequelize = require('sequelize')
 const Usuario = require('../entity/Usuario')
 
 const Cfop = require('../entity/Cfop')
-const CfopType = require('../entity/CfopType')
-const CfopGroup = require('../entity/CfopGroup')
+const CfopTipo = require('../entity/CfopTipo')
+const CfopGrupo = require('../entity/CfopGrupo')
 
 
 
@@ -34,8 +34,8 @@ Usuario.init(connection)
 Csosn.init(connection)
 
 Cfop.init(connection)
-CfopType.init(connection)
-CfopGroup.init(connection)
+CfopTipo.init(connection)
+CfopGrupo.init(connection)
 
 Ncms.init(connection)
 

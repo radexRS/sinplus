@@ -1,4 +1,7 @@
+// const { Model } = require('sequelize/types')
 const Empresa = require('../entity/Empresa')
+const Endereco = require('../entity/Endereco')
+const Csosn = require('../entity/Csosn')
 
 
 class EmpresaDAO{
@@ -15,9 +18,9 @@ class EmpresaDAO{
 
 
 
-async update(id, razao, fantasia, cnpj, ie, status, csosnId, enderecoId) {
+async update(id, razao, fantasia, cnpj, ie, status, csosnId) {
     try{
-        await Empresa.update({ razao, fantasia, cnpj, ie, status, csosnId, enderecoId }, { where: { id: id } })
+        await Empresa.update({ razao, fantasia, cnpj, ie, status, csosnId}, { where: { id: id } })
         return true
     }
     catch(error){
@@ -50,7 +53,7 @@ async getOne(id) {
 
 async getAll() {
     try{
-        return await Empresa.findAll()
+            return await Empresa.findAll( { include: [ {model: Csosn}, {model: Endereco} ] })
     }
     catch(error){
         return null

@@ -1,17 +1,17 @@
 const express = require('express')
 const autorizacao = require('../autorizacao/autorizacao')
 
-const CfopGroup = require('../model/entity/CfopGroup')
-const CfopGroupDAO = require('../model/dao/CfopGroupDAO')
+const CfopGrupo = require('../model/entity/CfopGrupo')
+const CfopGrupoDAO = require('../model/dao/CfopGrupoDAO')
 
 const routes = express.Router()
 
 
-routes.get('/cfopGroup', autorizacao, async (req, res) => {
+routes.get('/cfopGrupo', autorizacao, async (req, res) => {
     
-    let cfopgroupDAO = new CfopGroupDAO()
-    let cfopgroups = await cfopgroupDAO.getAll()
-    res.render("cfop/cfopGroup", { user: req.session.user, cfopgroups: cfopgroups })  
+    let cfopgrupoDAO = new CfopGrupoDAO()
+    let cfopgrupos = await cfopgrupoDAO.getAll()
+    res.render("cfop/cfopGrupo", { user: req.session.user, cfopgrupos: cfopgrupos })  
 })
 
 

@@ -61,10 +61,10 @@ class Empuser extends Sequelize.Model {
 
         static relations() {
 
-            Empresa.hasMany(Empuser, {  onDelete: 'RESTRICT',  onUpdate: 'CASCADE'})   
+            Empresa.hasMany(Empuser)   
             Empuser.belongsTo(Empresa)
 
-            Usuario.hasMany(Empuser, {  onDelete: 'RESTRICT',  onUpdate: 'CASCADE'})   
+            Usuario.hasMany(Empuser)   
             Empuser.belongsTo(Usuario)
 
         }
