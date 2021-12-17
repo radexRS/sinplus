@@ -1,6 +1,7 @@
 const  Sequelize = require('sequelize')
+const Venda = require('./Venda')
 
-class Unity extends Sequelize.Model {
+class Itenvenda extends Sequelize.Model {
 
         static init(sequelize) {
             super.init(
@@ -10,16 +11,7 @@ class Unity extends Sequelize.Model {
                         primaryKey: true,
                         autoIncrement: true
                     },
-
-                    unity: {
-                        type: Sequelize.STRING,
-                        unique: true
-                    },
-                    description: { 
-                        type: Sequelize.STRING,
-                        unique: true
-                    },
-
+                    
                     status: {
                         type: Sequelize.BOOLEAN,
                         defaultValue: true
@@ -27,12 +19,21 @@ class Unity extends Sequelize.Model {
                 },
                 {
                     sequelize,
-                    modelName: 'unity',
+                    modelName: 'itenvenda',
                     freezeTableName: true
                 }
 
             )
+
+            Itenvenda.relations()
+        }
+
+        static relations(){
+            
+            Venda.hasOne(Itenvenda)
+            Itenvenda.belongsTo(Venda)
+
         }
 }
 
-module.exports = Unity
+module.exports = Itenvenda

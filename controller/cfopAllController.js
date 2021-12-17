@@ -1,8 +1,8 @@
 const express = require('express')
 const autorizacao = require('../autorizacao/autorizacao')
 
-const CfopAll = require('../model/entity/CfopAll')
-const CfopAllDAO = require('../model/dao/CfopAllDAO')
+const CfopAll = require('../model/entity/Cfop')
+const CfopAllDAO = require('../model/dao/CfopDAO')
 
 const routes = express.Router()
 

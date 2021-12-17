@@ -1,6 +1,6 @@
 <%- include ('../partials/top'); %>
 
-<header><%- include ('../partials/navbar'); %></header>
+<header><%- include ('../partials/menuProduto'); %></header>
 
     <main class="flex-container direction-column">
 
@@ -17,29 +17,28 @@
                 <th scope="col">Descrição</th>
                 <th scope="col">Custo</th>
                 <th scope="col">Preço</th>
-                <th scope="col">Tamanho</th>
                 <th scope="col">Unidade</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Deletar</th>
             </thead>
             <tbody>  
 
-        <% products.forEach(function(product){  %>
+        <% produtos.forEach(function(produto){  %>
 
                 <tr>
-                    <td><%=product.id%></td>
-                    <td><%=product.ncm%></td>
-                    <td><%=product.cfop%></td>
-                    <td><%=product.csosn%></td>
-                    <td><%=product.description%></td>
-                    <td><%=product.cost%></td>
-                    <td><%=product.price%></td>
-                    <td><%=product.unity.description%></td>
-                    <td><%=product.status%></td>
+                    <td><%=produto.id%></td>
+                    <td><%=produto.ncm%></td>
+                    <td><%=produto.cfop%></td>
+                    <td><%=produto.csosn%></td>
+                    <td><%=produto.descricao%></td>
+                    <td><%=produto.custo%></td>
+                    <td><%=produto.preco%></td>
 
-                    <td class="ta-center"><a class="font-awesome color-edit" href="/product/edit/<%=product.id%>" 
+                    <td><%=produto.unidade.descricao%></td>
+
+                    <td class="ta-center"><a class="font-awesome color-edit" href="/produto/edit/<%=produto.id%>" 
                         ata-toggle="tooltip" title="Editar Unidade"></a></td>
-                    <td class="ta-center"><a class="font-awesome color-delete" href="/product/excluir/<%=product.id%>" 
+                    <td class="ta-center"><a class="font-awesome color-delete" href="/produto/excluir/<%=produto.id%>" 
                         ata-toggle="tooltip" title="Excluir CFOP"
                         onclick="return confirm('Confirmar a Exclusão?')"></a></td>                                       
                 </tr>

@@ -4,7 +4,7 @@ const Usuario = require('../entity/Usuario')
 const Cfop = require('../entity/Cfop')
 const CfopType = require('../entity/CfopType')
 const CfopGroup = require('../entity/CfopGroup')
-const CfopAll = require('../entity/CfopAll')
+
 
 
 const Csosn = require('../entity/Csosn')
@@ -12,10 +12,15 @@ const Endereco = require('../entity/Endereco')
 
 const Empresa = require('../entity/Empresa')
 
-const Ncms = require('../entity/Ncms')
-const Unity = require('../entity/Unity')
+const Empuser = require('../entity/Empuser')
 
-const Product = require('../entity/Product')
+const Ncms = require('../entity/Ncms')
+const Unidade = require('../entity/Unidade')
+
+const Produto = require('../entity/Produto')
+
+const Venda = require('../entity/Venda')
+const Itenvenda = require('../entity/Itenvenda')
 
 
 const connection = new Sequelize('dbtcc', 'root', 'rada', {
@@ -31,17 +36,20 @@ Csosn.init(connection)
 Cfop.init(connection)
 CfopType.init(connection)
 CfopGroup.init(connection)
-CfopAll.init(connection)
 
 Ncms.init(connection)
 
-Unity.init(connection)
+Unidade.init(connection)
 
 Endereco.init(connection)
 Empresa.init(connection)
 
-Product.init(connection)
+Empuser.init(connection)
 
+Produto.init(connection)
+
+// Venda.init(connection)
+// Itenvenda.init(connection)
 
 connection.sync({force: false})
 

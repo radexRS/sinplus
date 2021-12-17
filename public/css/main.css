@@ -69,6 +69,13 @@ form {
     background-color: none;
 }
 
+form.admin {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
 
 form.sale {
     display: flex;
@@ -92,6 +99,8 @@ h1 {
     color: indianred;
     display: block;
     width: 100%;
+    height: 100px;
+    padding: 15px;
 }
 
 h2 {
@@ -215,9 +224,14 @@ a.reset {
     display: flex;
     margin: 0 auto;
     width: 50%;
-    border-radius: 10px;
+    height: 100%;
+    /* border-radius: 10px; */
     border-color: rgb(202, 143, 95);
     background-color: white;
+    align-content: space-around;
+    border: solid 1px rgb(90, 94, 100);
+    /* border-radius: 15px;  */
+    box-shadow: 10px 10px grey;    
 }
 
 span {
@@ -301,4 +315,92 @@ form.sale {
     font-size: 2rem;
     color: white;
     
+}
+
+/* Empresa  */
+
+.boxNewEmpresa:before {
+    box-shadow: 10 10 15px 15px insert;
+}
+
+.boxNewEmpresa {
+    display: flex;
+    margin: 0 auto;
+    width: 50%;
+    height: 100%;
+    /* border-radius: 10px; */
+    border-color: rgb(202, 143, 95);
+    background-color: white;
+    align-content: space-around;
+    border: solid 1px rgb(90, 94, 100);
+    /* border-radius: 15px;  */
+    box-shadow: 10px 10px grey;
+}
+
+form.empresa {
+    align-self: center;
+    width: 90%;
+    height: 90%;
+    padding: 2%;
+    overflow-Y: scroll;
+    box-sizing: border-box;
+}
+
+.msg {
+    width: 100%;
+    position: relative;
+    right: 0;
+    text-align: center;
+}
+
+.boxLogin {
+    display: flex;
+    margin: 0 auto;
+    width: 40%;
+    height: 100%;
+    border-color: rgb(202, 143, 95);
+    background-color: white;
+    align-content: space-around;
+    border: solid 1px rgb(90, 94, 100);
+    border-radius: 15px; 
+    
+}
+
+form.login {
+    align-self: center;
+    width: 90%;
+    height: 90%;
+    padding: 2%;
+    box-sizing: border-box;
+}
+
+.boxIndex {
+
+    margin: 0 auto;
+    width: 60%;
+    height: 100%;
+
+    
+}
+
+.boxAdmin {
+    display: flex;
+    margin: 0 auto;
+    width: 50%;
+    height: calc( 100% - 100px);
+    /* border-radius: 10px; */
+    border-color: rgb(202, 143, 95);
+    background-color: white;
+    align-content: space-around;
+    border: solid 1px rgb(90, 94, 100);
+    /* border-radius: 15px;  */
+    box-shadow: 10px 10px grey;   
+}
+
+
+.tituloNavEmpUser {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    border: solid black 1px;
+    background-color: rgb(192, 173, 173);
 }

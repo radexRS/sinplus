@@ -21,25 +21,26 @@ const { Sequelise, sequelize} = require('../models')
 
 const { Op } = require("sequelize");
 
+
+
 routes.get('/empresa', admin, async (req, res) => {
 
     let csosnDAO = new CsosnDAO()
     let csosns = await csosnDAO.getAll()
-
-    res.render('empresa/empresa', {csosns: csosns, usuario: req.session.usuario, msg: ''})
+    
+  res.render('empresa/empresa', {msg: '', csosns: csosns, usuario: req.session.usuario})
 })
+
+
+
 
 routes.post('/empresa/save', admin, async (req, res) => {
 
-  
   let {logradouro, numero, bairro, municipio, cep, razao, fantasia, cnpj, ie, csosnId} = req.body
-
 
   parseInt(cnpj)
   parseInt(ie)
   parseInt(csosnId)
-
-  
 
   const t = await sequelize.transaction();
 
@@ -53,9 +54,7 @@ try {
       cep: cep
     },{transaction: t})
 
-    
-
-    await Empresa.create( {
+  await Empresa.create( {
       razao: razao,
       fantasia: fantasia,
       cnpj: cnpj,
@@ -64,63 +63,28 @@ try {
       csosnId: csosnId
     },{transaction: t})
 
-
-
      await t.commit()
+
+     let csosnDAO = new CsosnDAO()
+     let csosns = await csosnDAO.getAll()
+
+     res.render('empresa/empresa', {msg: 'Empresa Cadastrada com Sucesso!', csosns: csosns, usuario: req.session.usuario })
 
   } catch (error) {
         await t.rollback()
         console.log(error.toString());
+
+        let csosnDAO = new CsosnDAO()
+        let csosns = await csosnDAO.getAll()
+   
+        res.render('empresa/empresa', {msg: 'Dados não consistem, Verifique unicidade dos campos.', csosns: csosns, usuario: req.session.usuario })
+        
       }
 
+        // res.redirect('/empresa', {usuario: req.session.usuario })
+      
 
-
-  
-//   async function create(req, res, next) {
-
-//     try {
-//       const  { data  } = req.body
-
-//       const transaction = await t.create()
-//       if (!transaction.status && transaction.error) {
-//         throw transaction.error
-//       }
-
-//       const createEndereco = await Endereco.bulkCreate(data, { transaction: transaction.data })
-//       if (!createEndereco) {
-//         // rollback
-//         await t.rollback(transaction.data)
-//         res.status(400).send({
-//           status: 'error',
-//           message: 'Falha em criar Endereço'
-//         })
-//       }
-
-//       // commit
-//       const commit = await t.commit(transaction.data)
-//       if (!commit.status && commit.error) {
-//         throw commit.error
-//       }
-//       res.status(201).send({
-//         status: 'success',
-//         data: createEndereco
-//       })
-
-//     } catch (error) {
-//       next(error)
-//     } // Fim catch
-
-    
-
-//   } // Fim create
-
-
-res.redirect('/empresa')
-
-
-
-
-}) // Fim rota
+}) // Fim rota empresa/empresa
 
 
 
