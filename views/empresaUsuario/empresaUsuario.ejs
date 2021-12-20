@@ -7,43 +7,44 @@
          
         <h1 class="text-center">PAINEL DO ADMINISTRADOR</h1>
 
-        <div class="boxAdmin" >
+        <div class="boxEmpUser" >
+
+   
+            <table class="table table-hover">
+                <thead>
+                    <th scope="col">ID</th>
+                    <th scope="col">RAZÃO SOCIAL</th>
+                    <th scope="col">FANTAZIA</th>
+                    <th scope="col">CNPJ</th>
+                    <th scope="col">USUÁRIO</th>
+                    <th scope="col">E-MAIL USER</th>
+                    <th scope="col">EDITAR</th>
+                    <th scope="col">EXCLUIR</th>
+                </thead>
+                <tbody>  
+    
+            <% empusers.forEach(function(empuser){ console.log("empuser: ", empuser) %>
 
 
-                             
-        <form action="/empresaUsuario/save" method="post">
-          
-            <nav class="navbar navbar-light tituloNavEmpUser">
-                <div class="container-fluid">Regenciamento - Empresa / Funcionário </div>
-            </nav>            
+    
+                    <tr>
+                        <td><%=empuser.id%></td>
+                        <td><%=empuser.empresa.razao%></td>
+                        <td><%=empuser.empresa.fantasia%></td>
+                        <td><%=empuser.empresa.cnpj%></td>
+                        <td><%=empuser.usuario.nome%></td>
+                        <td><%=empuser.usuario.email%></td>
 
-        
-        <div class="input-group  mb-3">
-            <span class="input-group-text">Lista Empresas</span>
-            <select  class="form-select" id="id-csosn" name="empresaId" required>     
-                <% empresas.forEach(function(empresa){  %>
-                    <option value="<%=empresa.id%>" selected ><%=empresa.razao%> - <%=empresa.fantasia%></option> 
-                <% }) %>
-            </select>
-        </div>
-
-
-        <div class="input-group  mb-3">
-            <span class="input-group-text">Lista Usuários</span>
-            <select  class="form-select" id="id-csosn" name="usuarioId" required>     
-                <% usuarios.forEach(function(usuario){  %>
-                    <option value="<%=usuario.id%>" selected ><%=usuario.nome%></option> 
-                <% }) %>
-            </select>
-        </div>
-
-        <div class="col-12"> 
-            <input class="button btn btn-sm btn-primary" type="submit" value="Salvar">
-            <input class="button btn btn-sm btn-secondary" type="reset" value="Limpar">
-        </div>
-
-
-    </form>
+                        <td class="ta-center"><a class="font-awesome color-edit" href="/empresaUsuario/edit/<%=empuser.id%>" 
+                            ata-toggle="tooltip" title="Editar Unidade"></a></td>
+                        <td class="ta-center"><a class="font-awesome color-delete" href="/empresaUsuario/excluir/<%=empuser.id%>" 
+                            ata-toggle="tooltip" title="Excluir CFOP"
+                            onclick="return confirm('Confirmar a Exclusão?')"></a></td>                                       
+                    </tr>
+                    </tr>
+            <% }) %>
+                </tbody>
+            </table>            
 
     </div>
 

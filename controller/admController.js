@@ -22,48 +22,19 @@ routes.get('/', (req, res) => {
 })
 
 
-routes.get('/index', autorizacao, (req, res) => {
-    res.render('index', {usuario: req.session.usuario, msg: ''})
+routes.get('/index', autorizacao, async (req, res) => {
+    let empresaDAO = new EmpresaDAO()
+    let empresas = await empresaDAO.getAll()
+
+    let empuserDAO = new EmpuserDAO()
+    let empusers = await empuserDAO.getAll()
+    res.render('index', {empresas: empresas, empusers: empusers, usuario: req.session.usuario, msg: ''})
 })
 
 routes.get('/admin', admin, (req, res) => {
     res.render('admin/admin', {usuario: req.session.usuario, msg: ''})
 })
 
-routes.get('/empresaUsuario', admin, async (req, res) => {
-
-    let usuarioDAO = new UsuarioDAO()
-    let usuarios = await usuarioDAO.getAll()
-
-    let empresaDAO = new EmpresaDAO()
-    let empresas = await empresaDAO.getAll()
-
-    res.render('empresaUsuario/empresaUsuario', {usuarios: usuarios, empresas: empresas, usuario: req.session.usuario, msg: '' })
-
-})
-
-routes.post('/empresaUsuario/save', admin, async (req, res) => {
-
-    let usuarioDAO = new UsuarioDAO()
-    let usuarios = await usuarioDAO.getAll()
-
-    let empresaDAO = new EmpresaDAO()
-    let empresas = await empresaDAO.getAll()
-
-    let {empresaId, usuarioId} = req.body
-
- 
-
-    let empuserDAO = new EmpuserDAO()
-    let empuser = await empuserDAO.create(empresaId, usuarioId)
-
-    if (empuser) { res.render('empresaUsuario/empresaUsuario', {empresas: empresas, usuarios: usuarios, msg: 'Cadastro Realizado com Sucesso!!'}) }
-    else { 
-            
-        res.render('empresaUsuario/empresaUsuario', {empresas: empresas, usuarios: usuarios, msg: 'Falha no Cadastro! Verifique combinacão de Empresa Usuário '})}
-    
-
-})
 
 
 module.exports = routes

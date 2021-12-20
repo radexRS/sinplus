@@ -1,9 +1,8 @@
-
 function admin( req, res, next ){
     usuario = req.session.usuario
-    if (req.session.usuario != undefined){
+    if (req.session.usuario !== undefined){
         console.log("req.session.usuario", req.session.usuario)
-        if (usuario.nome == "admin") {
+        if (usuario.email == "admin@gmail.com") {
             next()
             }else {
             res.redirect("/index")

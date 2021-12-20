@@ -4,8 +4,6 @@ const session = require('express-session');
 const connection = require('./model/dao/connection')
 const admController = require('./controller/admController')
 const usuarioController = require('./controller/usuarioController')
-
-
 const cfopController = require('./controller/cfopController')
 const cfopTypeController = require('./controller/cfopTypeController')
 const cfopGroupController = require('./controller/cfopGroupController')
@@ -25,12 +23,15 @@ const produtoController = require('./controller/produtoController')
 const vendaController = require('./controller/vendaController')
 
 const empresaController = require('./controller/empresaController')
+
+const empuserController = require('./controller/empuserController')
                         
 const app = express()
 
 
 const autorizacao = require("./autorizacao/autorizacao")
 const admin = require("./autorizacao/admin")
+const empresa = require('./autorizacao/empresa')
 
 app.use(session({ secret: "Um%55kjds", resave: true, saveUninitialized: true }));
 
@@ -50,6 +51,7 @@ app.use(admController,
         cfopAllController,
         csosnController,
         empresaController,
+        empuserController,
         unidadeController,
         ncmsController,
         produtoController,

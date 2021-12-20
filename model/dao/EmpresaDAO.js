@@ -42,7 +42,7 @@ async delete(id) {  //id de req.params.id
 
 async getOne(id) {
     try{
-        return await Empresa.findByPk(id)
+        return await Empresa.findOne( {where: {id: id}, include: [ {model: Csosn}, {model: Endereco} ] } )
     }
     catch(error){
         return null

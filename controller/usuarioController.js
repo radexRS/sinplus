@@ -4,24 +4,40 @@ const sendMailForgets = require('../public/js/utils/sendMailForgets')
 const criptograf = require('../public/js/utils/cripograf')
 const compare = require('../public/js/utils/compare')
 const codeRandomString = require('../public/js/utils/codeRandomString')
-const UsuarioDAO = require('../model/dao/UsuarioDAO')
+// const UsuarioDAO = require('../model/dao/UsuarioDAO')
 const bcrypt = require('bcryptjs')
 const routes = express.Router()
 const nodemailer = require('nodemailer')
 
+const Usuario = require('../model/entity/Usuario')
+const UsuarioDAO = require('../model/dao/UsuarioDAO')
+
+const Empresa = require('../model/entity/Empresa')
+const EmpresaDAO = require('../model/dao/EmpresaDAO')
+
+const Empuser = require('../model/entity/Empuser')
+const EmpuserDAO = require('../model/dao/EmpuserDAO')
 
 //Rotas do usuário.
 
 routes.post('/login', async (req, res) => {
     let { email, senha } = req.body
+
+    let empresaDAO = new EmpresaDAO()
+    let empresas = await empresaDAO.getAll()
+
+    let empuserDAO = new EmpuserDAO()
+    let empusers = await empuserDAO.getAll()
+
     let usuarioDAO = new UsuarioDAO()
     let usuario = await usuarioDAO.getByLogin(email, senha)
     if (usuario) {
         req.session.usuario = usuario
+
         if (usuario.nome == "admin") {
-            res.render('admin/admin', { usuario: req.session.usuario })
+            res.render('admin/admin', {empusers: empusers, empresas: empresas, usuario: usuario})
         } else if (usuario.nome !== "admin")
-        res.render('index', { usuario: req.session.usuario })
+        res.render('index', {empusers: empusers, empresas: empresas, usuario: usuario})
     }
     else
         res.render('login', { msg: 'Usuário ou senha inválidos.' })
@@ -162,5 +178,26 @@ routes.post('/usuario/openSessionForgets', async  (req, res) => {
     } else 
         res.render('login', {msg: "Código de recuperação ou e-mail inválido."})
 })
+
+
+routes.get('/logout', (req, res) => {
+    req.session.usuario = undefined
+    req.session.empresa = undefined
+    res.redirect("/")
+})
+
+
+routes.post('/empresaUsuario/select', autorizacao, async (req, res) =>{
+
+    let {id} = req.body
+
+    let empresaDAO = new EmpresaDAO()
+    let empresa = await empresaDAO.getOne(id)
+
+    req.session.empresa = empresa
+
+    res.render('venda/venda', {empresa: req.session.empresa, usuario: req.session.usuario, msg: ''})
+
+} )
 
 module.exports = routes

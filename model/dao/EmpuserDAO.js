@@ -1,4 +1,7 @@
+const Csosn = require('../entity/Csosn')
+const Empresa = require('../entity/Empresa')
 const Empuser = require('../entity/Empuser')
+const Usuario = require('../entity/Usuario')
 
 
 class EmpuserDAO{
@@ -52,7 +55,7 @@ async getOne(id) {
 
 async getAll() {
     try{
-        return await Empuser.findAll()
+        return await Empuser.findAll({include: [ {model: Empresa}, {model: Usuario} ] })
     }
     catch(error){
         return null

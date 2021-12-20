@@ -1,5 +1,5 @@
 function autorizacao( req, res, next ){
-    if (req.session.usuario != undefined){
+    if (req.session.usuario !== undefined){
         next()
     } else {
         res.redirect("/")

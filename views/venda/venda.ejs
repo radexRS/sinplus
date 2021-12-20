@@ -12,11 +12,15 @@
             <div class="principal">
 
                 <div class="esquerda ">
+                    <div>Empresa <%= empresa.razao%></div>
+                    <div>CNPJ <%= empresa.cnpj%></div>
+                    <div>Endereo <%= empresa.endereco.logradouro%>, <%= empresa.endereco.numero%> </div>
                     
-                    <div class="linhaBloco">Natureza da Operação: 1 - Saída <input type="hidden" value="1" name="naturezaOperacao" id="natOp"> </div>
-                    <div class="linhaBloco">CSOSN: 103 - Isenção do ICMS no Simples Nacional para faixa de receita bruta"
-                            <input type="hidden" value="103" name="csons" id="codigoCsosn"> 
+
+                    <div class="linhaBloco">CSOSN: <%= empresa.csosn.csosn %> - <%= empresa.csosn.descricao %>
+                        <input type="hidden" value="<%= empresa.csosn.id %>" name="csons" id="codigoCsosn"> 
                     </div>
+                    <div class="linhaBloco">Natureza da Operação: 1 - Saída <input type="hidden" value="1" name="naturezaOperacao" id="natOp"> </div>
                 </div>
 
                 <div class="direita">

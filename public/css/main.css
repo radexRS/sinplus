@@ -404,3 +404,20 @@ form.login {
     border: solid black 1px;
     background-color: rgb(192, 173, 173);
 }
+
+
+.boxEmpUser {
+
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    height: calc( 100% - 100px);
+    /* border-radius: 10px; */
+    border-color: rgb(202, 143, 95);
+    background-color: white;
+    align-content: space-around;
+    border: solid 1px rgb(90, 94, 100);
+    /* border-radius: 15px;  */
+    box-shadow: 10px 10px grey;   
+
+}

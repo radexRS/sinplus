@@ -172,22 +172,30 @@ try {
 
      await t.commit()
 
-     let csosnDAO = new CsosnDAO()
-     let csosns = await csosnDAO.getAll()
+     let empresaDAO = new EmpresaDAO()
+     let empresas = await empresaDAO.getAll()
+     
+     res.render('empresa/empresa', {empresas: empresas, msg: 'Empresa Cadastrada com Sucesso!', usuario: req.session.usuario })
 
-     res.render('empresa/empresa', {msg: 'Empresa Cadastrada com Sucesso!', csosns: csosns, usuario: req.session.usuario })
+    //  let csosnDAO = new CsosnDAO()
+    //  let csosns = await csosnDAO.getAll()
+
+    //  res.render('empresa/empresa', {msg: 'Empresa Cadastrada com Sucesso!', csosns: csosns, usuario: req.session.usuario })
 
   } catch (error) {
         await t.rollback()
-       
-        let csosnDAO = new CsosnDAO()
-        let csosns = await csosnDAO.getAll()
+
+        let empresaDAO = new EmpresaDAO()
+        let empresas = await empresaDAO.getAll() 
+        
+        res.render('empresa/empresa', {empresas: empresas, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
+
+        // let csosnDAO = new CsosnDAO()
+        // let csosns = await csosnDAO.getAll()
    
-        res.render('empresa/empresa', {msg: 'Dados não consistem, Verifique unicidade dos campos.', csosns: csosns, usuario: req.session.usuario })
+        // res.render('empresa/empresa', {msg: 'Dados não consistem, Verifique unicidade dos campos.', csosns: csosns, usuario: req.session.usuario })
         
       }
-
-        // res.redirect('/empresa', {usuario: req.session.usuario })
       
 
 }) // Fim rota empresa/empresa
