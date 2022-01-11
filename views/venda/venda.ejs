@@ -1,9 +1,6 @@
-<%- include ('../partials/top'); %>
+<%- include ('../partials/top') %>
 
-
-<header><%- include ('../partials/navbar'); %></header>
-
-
+<header><%- include ('../partials/navbar') %></header>
 
     <main class="">
 
@@ -11,173 +8,255 @@
 
             <div class="principal">
 
-                <div class="esquerda ">
-                    <div>Empresa <%= empresa.razao%></div>
-                    <div>CNPJ <%= empresa.cnpj%></div>
-                    <div>Endereo <%= empresa.endereco.logradouro%>, <%= empresa.endereco.numero%> </div>
-                    
+                <div class="ladoEsquerdo">    
 
+                    <div>Empresa <%= empresa.razao%> - CNPJ <%= empresa.cnpj%></div>
+                    <div>Endereo <%= empresa.endereco.logradouro%>, <%= empresa.endereco.numero%> </div>            
                     <div class="linhaBloco">CSOSN: <%= empresa.csosn.csosn %> - <%= empresa.csosn.descricao %>
                         <input type="hidden" value="<%= empresa.csosn.id %>" name="csons" id="codigoCsosn"> 
                     </div>
                     <div class="linhaBloco">Natureza da Operação: 1 - Saída <input type="hidden" value="1" name="naturezaOperacao" id="natOp"> </div>
+
+                    <div class="input-group">
+                        <span class="input-group-text bg-color-ncm">TOTAL R$: </span>
+                        <input type="number" step="0.01" id="valorTotal" class="form-control estiloCampoTotal" readonly >
+                    </div>
+
+                    <div>
+                        <form>
+                            <div class="input-group">
+                                <span class="input-group-text bg-color-ncm">QUANTIDADE</span>
+                                <input class="form-control" type="number" step="0.01" id="idQuantidade" name="quantidade"  autofocus required> 
+                            </div>                            
+                            <div class="input-group">
+                                <span class="input-group-text bg-color-ncm">PRODUTO</span>
+                                <input class="form-control" type="number" step="1" id="codigo" name="idProduto" placeholder="CÓDIGO" required> 
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text bg-color-button-busca-ncm flexgrow" id="add" onclick="buscaProduto()">ADICIONAR</span>
+                                <span class="input-group-text bg-color-button-busca-ncm flexgrow" onclick="cleanTable()">LIMPAR</span>
+                                <span class="input-group-text bg-color-button-busca-ncm flexgrow" onclick="finalizar()">FINALIZAR</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="direita">
+                <div class="ladoDireito">
 
                     <div class="listaItem">
-                        <table class="table table-hover table-bordered">
+                        <h3>LISTA DE PRODUTOS</h3>
+                        <table id="tabela" class="table table-hover table-bordered">
                             <thead class="fixa">
-                                <th>#</th>
-                                <th>Descricao</th>
-                                <th>Quantidade</th>
-                                <th>UN R$:</th>
-                                <th>Total R$:</th>
+                                <th class="centro">#</th>
+                                <th class="centro">Código</th>
+                                <th class="centro">Descricao</th>
+                                <th class="centro">Quantidade</th>
+                                <th class="centro">UN</th>
+                                <th class="centro">R$</th>
+                                <th class="centro">Total R$</th>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>1</td>
-                                    <td>mercadoria</td>
-                                    <td>10</td>
-                                    <td>14.90</td>
-                                    <td>149.90</td>
-                                </tr>
-
+                            <tbody id="corpo">
+                               
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-
             </div>
-
-
 
         </form>      
               
     </main>
 
 
+    <%- include ('../partials/footer') %>
+
+    <%- include ('../partials/down') %>
+
+    <script>
+    
+    let venda = {}    
+    venda.usuarioId = '<%=usuario.id%>'
+    venda.empresaId = '<%=empresa.id%>'
+
+    let items = []
+ 
+    let total = 0.000
+    
+    if (total == 0){
+
+        document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)
+        venda.total = document.getElementById("valorTotal").value
+
+    } 
+
+    let cont = 1
+
+    function ajax(config) {       
+        
+        const xhr = new XMLHttpRequest()
+        xhr.open(config.metodo, config.url, true)
+        xhr.onload = e => {
+                if (xhr.status === 200) {
+                    config.sucesso(xhr.response)
+                } else if (xhr.status >= 400) {
+                    config.erro({
+                        code: xhr.status,
+                        text: xhr.statusText
+                    })
+                }
+            }
+            xhr.send()
+        
+    }   
+    
+    function criarTabela(produto) {
+
+    const tdCont = document.createElement('td')
+    tdCont.innerHTML = cont
+    tdCont.setAttribute("scope", "row")
+    tdCont.setAttribute("class", "direita")
+    
+    const tdIdProduto = document.createElement('td')
+    tdIdProduto.innerHTML = produto.id
+    tdIdProduto.setAttribute("scope", "row")
+    tdIdProduto.setAttribute("class", "direita")
+    
+    const tdDescricao = document.createElement('td')
+    tdDescricao.innerHTML = produto.descricao
+    tdDescricao.setAttribute("scope", "row")
+    
+    let quantidade = document.getElementById("idQuantidade").value   
+    // troca , por . 
+    quantidade = quantidade.replace(/,/g, '.')
+    const tdQuantidade = document.createElement('td')
+    tdQuantidade.innerHTML = parseFloat(quantidade).toFixed(2)
+    tdQuantidade.setAttribute("scope", "row")
+    tdQuantidade.setAttribute("class", "direita")
+    
+    const tdUnidadeId = document.createElement('td')
+    tdUnidadeId.innerHTML = produto.unidade.unidade
+    tdUnidadeId.setAttribute("scope", "row")
+    tdUnidadeId.setAttribute("class", "direita")
+    
+    parseFloat(produto.preco)
+    const tdPreco = document.createElement('td')
+    tdPreco.innerHTML = parseFloat(produto.preco).toFixed(2)
+    tdPreco.setAttribute("scope", "row")
+    tdPreco.setAttribute("class", "direita")
+
+    const tdTotal = document.createElement('td')
+    tdTotal.innerHTML = parseFloat(produto.preco * quantidade).toFixed(2)
+    tdTotal.setAttribute("scope", "row")
+    tdTotal.setAttribute("class", "direita")
+
+    total = (total + (produto.preco * quantidade))
+
+    const tr = document.createElement('tr')
+
+    tr.appendChild(tdCont)
+    tr.appendChild(tdIdProduto)
+    tr.appendChild(tdDescricao)
+    tr.appendChild(tdQuantidade)
+    tr.appendChild(tdUnidadeId)
+    tr.appendChild(tdPreco)
+    tr.appendChild(tdTotal)
+
+    document.getElementById("corpo").appendChild(tr)
+                
+    }
+
+    function buscaProduto(){
+
+    event.preventDefault()
+
+    let codigo = document.getElementById("codigo").value   
+
+    ajax({
+        url: `http://localhost:3000/buscaProduto/?codigo=${codigo}`,
+        metodo: "get",
+        sucesso(resposta){
+            const produto = JSON.parse(resposta)
+            criarTabela(produto)
+            document.getElementById("idQuantidade").value = ""
+            document.getElementById("codigo").value = ""
+            document.getElementById("idQuantidade").focus()
+            cont++  
+            document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)
+            venda.total = document.getElementById("valorTotal").value
+            
+            items.push({empresaId: venda.usuarioId, usuarioId: venda.usuarioId, produtoId: produto.id})
+
+            alerta()                      
+        },
+        erro(e) {
+            const msg = document.createTextNode(`${e.code}: ${e.text}`)
+            document.body.appendChild(msg)
+        }
+    })
+    
+    }
 
 
-    <%- include ('../partials/footer'); %>
 
-    <%- include ('../partials/down'); %>
+    function cleanTable (){
+
+    document.getElementById("corpo").outerHTML = ""
+
+    //Cria Tbody
+    let corpo = document.createElement('tbody')
+    
+    //Adiciona Tbody
+    document.getElementById("tabela").appendChild(corpo) 
+    
+    // Cria atributo id com valor corpo
+    var t = document.querySelector("tbody")
+    t.setAttribute("id", "corpo")
+        document.getElementById("idQuantidade").value = ""
+        document.getElementById("codigo").value = ""
+        document.getElementById("idQuantidade").focus()
+        cont = 1
+        total = 0        
+        document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)     
+        venda.total = document.getElementById("valorTotal").value
+        venda = {}
+        items = []
+    }
+
+    function finalizar(){
+
+        String(venda)
+        items.toString()
+
+        ajax({
+        url: `http://localhost:3000/vendaFim/?venda=${venda}&items=${items}`,
+        metodo: "get",
+        sucesso(resposta){
+                 
+        },
+        erro(e) {
+            const msg = document.createTextNode(`${e.code}: ${e.text}`)
+            document.body.appendChild(msg)
+        }
+    })
+
+    }
+
+    // Chamada da função buscaProduto ao precionar enter ou cleanTable ao precionar delete
+
+    document.addEventListener('keydown', function (event) {
+    if (event.keyCode == 13) {
+        buscaProduto()
+    } else if  (event.keyCode == 46) 
+        {
+            cleanTable()
+        }
+    })
+
+
+    function alerta(){ 
+        
+        alert("Empresa Id: " + venda.empresaId + " - " + " Usuario Id" + venda.usuarioId + " - " + "Total: " + venda.total + "Items : " + items)   
+    }
+
+    </script>

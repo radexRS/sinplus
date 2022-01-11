@@ -18,6 +18,9 @@ const EmpresaDAO = require('../model/dao/EmpresaDAO')
 const Empuser = require('../model/entity/Empuser')
 const EmpuserDAO = require('../model/dao/EmpuserDAO')
 
+const Venda = require('../model/entity/Venda')
+const VendaDAO = require('../model/dao/VendaDAO')
+
 //Rotas do usuário.
 
 routes.post('/login', async (req, res) => {
@@ -33,7 +36,6 @@ routes.post('/login', async (req, res) => {
     let usuario = await usuarioDAO.getByLogin(email, senha)
     if (usuario) {
         req.session.usuario = usuario
-
         if (usuario.nome == "admin") {
             res.render('admin/admin', {empusers: empusers, empresas: empresas, usuario: usuario})
         } else if (usuario.nome !== "admin")
@@ -44,11 +46,12 @@ routes.post('/login', async (req, res) => {
 })
 
 
-
 routes.get('/logout', (req, res) => {
     req.session.usuario = undefined
+    req.session.empresa = undefined
     res.redirect("/")
 })
+
 
 
 routes.get('/usuario/new', (req, res) => {
@@ -180,13 +183,6 @@ routes.post('/usuario/openSessionForgets', async  (req, res) => {
 })
 
 
-routes.get('/logout', (req, res) => {
-    req.session.usuario = undefined
-    req.session.empresa = undefined
-    res.redirect("/")
-})
-
-
 routes.post('/empresaUsuario/select', autorizacao, async (req, res) =>{
 
     let {id} = req.body
@@ -194,9 +190,19 @@ routes.post('/empresaUsuario/select', autorizacao, async (req, res) =>{
     let empresaDAO = new EmpresaDAO()
     let empresa = await empresaDAO.getOne(id)
 
+    
     req.session.empresa = empresa
+    console.log("Rota select Empresa: ", empresa)
+    
+    // let venda = {}
+    // req.session.venda = venda
+    // console.log("Venda: ", venda)
+
+    // let item = new ItemDAO()
+    // req.session.item = item
 
     res.render('venda/venda', {empresa: req.session.empresa, usuario: req.session.usuario, msg: ''})
+    
 
 } )
 

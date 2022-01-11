@@ -9,12 +9,7 @@ body{
                          'main main'
                          'footer footer';
     font-size: 1rem;
-    font-family: oswald;  
-
-    /* background-image: url(/imagens/yggm3mpw.bmp);
-    background-repeat: no-repeat;
-    background-size: cover; /* Ajusta a imagem */
-    /*background-position: center center; /* foca o centro da imagem */      
+    font-family: oswald;    
 }
 
 header {
@@ -25,6 +20,12 @@ header {
     grid-area: header;
     display: flex;
     background: rgba(0, 0, 0, 0.5);   
+    
+    background-image: url(../imagens/fundoEscuro.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta a imagem */
+    background-position: top center; /* foca o centro da imagem */   
+    overflow: hidden; 
 }
 
 
@@ -42,25 +43,13 @@ footer {
     max-height: 100px;
     grid-area: footer;
     background: rgba(0, 0, 0, 0.1);
+
+    background-image: url(../imagens/fundoEscuro.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta a imagem */
+    background-position: bottom center; /* foca o centro da imagem */   
+    overflow: hidden; 
 }
-
-/* article { 
-    width: 100%;
-    max-height: calc(100vh - 200px);
-    grid-area: article;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-} 
-
-aside {
-    width: 100%;
-    max-height: calc(100vh - 200px);
-    grid-area: aside;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-} */
 
 
 form {
@@ -75,7 +64,6 @@ form.admin {
     flex-direction: column;
     box-sizing: border-box;
 }
-
 
 form.sale {
     display: flex;
@@ -92,6 +80,19 @@ table {
 
 a, a:link, a:hover, a:visited, a:active {
     text-decoration: none;
+    background-color: none;
+}
+
+a.remove {
+    color: lightcoral
+}
+
+a.atencao {
+        color:#dc143c;
+    }
+
+a.reset {
+    color: #6ACAD8;
 }
 
 h1 {
@@ -99,8 +100,9 @@ h1 {
     color: indianred;
     display: block;
     width: 100%;
-    height: 100px;
-    padding: 15px;
+    /* height: 100px; */
+    /* padding: 15px; */
+    margin-top: 15px;
 }
 
 h2 {
@@ -111,10 +113,10 @@ h3 {
     text-align: center;
     font-size: 24px;
 }
- h3 a {
+ /* h3 a {
     font-size: 24px;
     text-decoration: none;
-}
+} */
 
 .height-25px {
     height: 25px;
@@ -182,65 +184,33 @@ h3 {
     width: 40%;
 }
 
-a.remove {
-    color: lightcoral
-}
-
-
-a.atencao {
-        color:#dc143c;
-    }
-
-
-a.reset {
-    color: #6ACAD8;
-}
-
-
-.user {
-    color: white;
-    position: fixed;
-    right: 25px;
-    top: 25px;
-}
-
-.boxLogo {
-    max-width: 100px;
-    max-height: 100px;
-    align-self: flex-start;
-}
-
-.logo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
-}
-
-
 /* Produtos */
 
 .boxNewProduct {
     display: flex;
     margin: 0 auto;
-    width: 50%;
-    height: 100%;
-    /* border-radius: 10px; */
-    border-color: rgb(202, 143, 95);
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    min-width: 50%;
+    max-width: 80%;
     background-color: white;
-    align-content: space-around;
     border: solid 1px rgb(90, 94, 100);
-    /* border-radius: 15px;  */
     box-shadow: 10px 10px grey;    
 }
 
 span {
     width: 25%;
     font-size: 0.8rem;
+    
 }
 
 span:hover.bg-color-button-busca-ncm{
     color: white;
+    
+}
+
+span.flexgrow {
+    flex-grow: 1;
 }
 
 form.product {
@@ -249,10 +219,12 @@ form.product {
     align-self: center;
     width: 90%;
     padding: 2%;
-    max-height: calc(100vh - 200px);
-    /* overflow-Y: scroll; */
+    max-height: calc(100vh - 300px);
+    overflow-Y: scroll;
     box-sizing: border-box;
 }
+
+
 
 /*  Fim produto */
 
@@ -264,18 +236,24 @@ form.product {
 form.sale {
     display: flex;
     width: 100%;  
-    justify-content: space-between;
+    justify-content: stretch;
     box-sizing: border-box;
 }
 
 .principal {
     width: 100%;
+    height: calC(100vh - 250px);
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;   
+    justify-content: stretch;
+    flex-grow: 1;
+    box-sizing: border-box;
+    
 }
 
-.esquerda {
+.ladoEsquerdo {
     width: 100%;
+    height: calc(100vh -250px);
     margin: 2%;
 }
 
@@ -283,21 +261,29 @@ form.sale {
     margin-bottom: 1%;
 }
 
-.direita {
+.ladoDireito {
     display: flex;
+    flex-grow: 1;
     width: 100%;
+    justify-content: stretch;
     margin: 1%;
 }
 
+.direita {
+    text-align: right;
+}
+.centro {
+    text-align: center;
+}
 
 .listaItem {
-    display: flex;
-    align-self: center;
-    width: 90%;
-    max-height: calc(100vh - 250px);
+    flex-grow: 1;
+    /* margin-right: 10px; */
     overflow-Y: scroll; 
-    border: solid 1px black;
-    border-radius: 10px;
+    border: solid 1px #222;
+    /* padding: 12px; */
+    background-color: #e9ecef;
+    box-shadow: 10px 10px grey;    
 }
 
 .fixa {
@@ -306,7 +292,29 @@ form.sale {
     background-color: white;
 }
 
+.total {
+    align-self: center;
+    flex-grow: 1;
+    margin: 2% auto;
+    border: solid 1px black;
+    border-radius: 5px;
+    color: rgb(47, 44, 45);
+    font-size: 1rem;
+    padding: 5px;
+    background-color: #f0c37c;
+}
+
+
+.estiloCampoTotal {
+    padding-left: 25px;
+    width: 50%;
+    color: crimson;
+}
+
+
 /* Fim Vendas */
+
+/* footer */
 
 .clock {
     position: fixed;
@@ -317,31 +325,64 @@ form.sale {
     
 }
 
+.info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.tecla {
+    width: 100px;
+    text-align: center;
+    border: solid 1px gray;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.linha {
+    display: flex;
+}
+
+.infoTecla {
+    margin-left: 15px;
+    color: white;
+}
+
+/* Fim footer */
+
 /* Empresa  */
 
 .boxNewEmpresa:before {
+
     box-shadow: 10 10 15px 15px insert;
 }
 
 .boxNewEmpresa {
     display: flex;
     margin: 0 auto;
-    width: 50%;
-    height: 100%;
-    /* border-radius: 10px; */
-    border-color: rgb(202, 143, 95);
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    min-width: 50%;
+    max-width: 80%;
     background-color: white;
-    align-content: space-around;
     border: solid 1px rgb(90, 94, 100);
-    /* border-radius: 15px;  */
-    box-shadow: 10px 10px grey;
+    box-shadow: 10px 10px grey; 
+}
+
+.tabelaScroll-y {
+    overflow-Y: scroll; 
 }
 
 form.empresa {
+    display: flex;
+    flex-direction: column;
     align-self: center;
     width: 90%;
-    height: 90%;
     padding: 2%;
+    max-height: calc(100vh - 300px);
     overflow-Y: scroll;
     box-sizing: border-box;
 }
@@ -375,19 +416,35 @@ form.login {
 }
 
 .boxIndex {
-
     margin: 0 auto;
     width: 60%;
     height: 100%;
+}
 
-    
+/* Emp User*/
+
+form.empUser {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 90%;
+    padding: 2%;
+    max-height: calc(100vh - 300px);
+    overflow-Y: scroll;
+    box-sizing: border-box;
+}
+
+.boxEmpUserIndex {
+    display: flex;
+    flex-grow: 1;
+    justify-content: stretch;
 }
 
 .boxAdmin {
     display: flex;
     margin: 0 auto;
     width: 50%;
-    height: calc( 100% - 100px);
+    height: calc( 100% - 150px);
     /* border-radius: 10px; */
     border-color: rgb(202, 143, 95);
     background-color: white;
@@ -401,23 +458,20 @@ form.login {
 .tituloNavEmpUser {
     margin-top: 50px;
     margin-bottom: 10px;
+    flex-grow: 1;
     border: solid black 1px;
     background-color: rgb(192, 173, 173);
 }
 
 
-.boxEmpUser {
-
+.boxNewEmpUser {
     display: flex;
     margin: 0 auto;
-    width: 90%;
-    height: calc( 100% - 100px);
-    /* border-radius: 10px; */
-    border-color: rgb(202, 143, 95);
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    min-width: 50%;
+    max-width: 80%;
     background-color: white;
-    align-content: space-around;
     border: solid 1px rgb(90, 94, 100);
-    /* border-radius: 15px;  */
-    box-shadow: 10px 10px grey;   
-
+    box-shadow: 10px 10px grey; 
 }

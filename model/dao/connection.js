@@ -48,7 +48,7 @@ Empuser.init(connection)
 
 Produto.init(connection)
 
-// Venda.init(connection)
+Venda.init(connection)
 // Itenvenda.init(connection)
 
 connection.sync({force: false})

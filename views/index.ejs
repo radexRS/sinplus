@@ -4,22 +4,27 @@
     <div class="boxIndex">
         <h1 class="text-center">Bem vido a nossa Home!</h1>
         <hr>
-        <p class="text-dark margin-left-right-5por">
+        <p class="text-dark margin-left-right-5por"> Seja bem-vindo, 
             <% if (usuario) {%> 
             <%=usuario.nome%>
             <% } %>
         </p>
-        <p class="text-dark text-justify margin-left-right-5por">Seja bem-vindo.</p>
-        <div>
+        
+        <div class="boxEmpUserIndex">
 
             <% if (usuario.email !== 'admin@gmail.com') { %>
             <form action="/empresaUsuario/select" method="post">
-            <nav class="navbar navbar-light tituloNavEmpUser">
-                <div class="container-fluid">Selecione uma Empresa </div>
-            </nav>            
+
+            <div class="input-group mb-3">
+                <span class="input-group-text tituloNavEmpUser">Selecione uma Empresa</span>
+            </div>
+
+            <!-- <nav class="navbar navbar-light tituloNavEmpUser">
+                <div class="container">Selecione uma Empresa </div>
+            </nav>             -->
         
-            <div class="input-group  mb-3">
-                <span class="input-group-text">Lista Empresas do Usuário</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Empresa / Usuário</span>
                 <select  class="form-select" id="empresa-Id" name="id" required>     
                     <% empusers.forEach(function(empuser){ %>
                         <%  empresas.forEach(function(empresa) { %>

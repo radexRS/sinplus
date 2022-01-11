@@ -12,25 +12,12 @@ class Venda extends Sequelize.Model {
                         primaryKey: true,
                         autoIncrement: true
                     },
-
-                                        
-                    naturezaOp: {
-                        type: Sequelize.BOOLEAN,
-                        defaultValue: true
-                    },
-
-                    formaPagamento: {
-                        type: Sequelize.STRING,
-                        unique: true
-                    },                 
+      
 
                     total: {
                         type: Sequelize.FLOAT
                     },                    
-                    
-                    preco: {
-                        type: Sequelize.FLOAT
-                    },
+
                     
                     status: {
                         type: Sequelize.BOOLEAN,

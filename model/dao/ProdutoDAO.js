@@ -39,7 +39,7 @@ class ProdutoDAO{
 
     async getOne(id) {
         try{
-            return await Produto.findByPk(id)
+            return await Produto.findOne({ where: { id: id}, include: [{model: Unidade}] })
         }
         catch(error){
             return null

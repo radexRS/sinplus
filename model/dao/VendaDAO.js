@@ -1,0 +1,43 @@
+const Empresa = require('../entity/Empresa')
+const Usuario = require('../entity/Usuario')
+
+class VendaDAO{
+
+    async create(total, usuarioId, empresaId) {
+        
+        try{
+            await Venda.create({total, usuarioId, empresaId})
+            return true
+        }
+        catch(error){
+            return false
+        }
+}
+
+
+
+    async delete(id) {  //id de req.params.id
+        try{
+            await Venda.destroy({ where: { id: id } })
+            return true
+        }
+        catch(error){
+            return false
+        }
+    }
+
+
+    async getOne(id) {
+        try{
+            return await Venda.findOne({ where: { id: id}, include: [{model: Usuario}, {model: Empresa}] })
+        }
+        catch(error){
+            return null
+        }
+    }
+
+
+}
+
+
+module.exports = VendaDAO

@@ -4,8 +4,6 @@
     src: url("../font/Font\ Awesome\ 5\ Free-Solid-900.otf")
 }
 
-
-
 @font-face{
     font-family: 'oswald';
     src:url("../font/Oswald-VariableFont_wght.ttf")
@@ -26,6 +24,16 @@
     src: url(../font/ReggaeOne-Regular.ttf);
 }
 
+@font-face{
+    font-family: 'ArchitectsDaughter-Regular';
+    src: url(../font/ArchitectsDaughter-Regular.ttf)
+}
+
+@font-face {
+    font-family: 'Pacifico';
+    src: url(../font/Pacifico-Regular.ttf);
+}
+
 /*   -----   Fontes   -----   */
 
 
@@ -43,4 +51,11 @@
 
 .font-size-1p5em {
     font-size: 1.5em;
+}
+
+.font-ArchitectsDaughter{
+    font-family: 'ArchitectsDaughter-Regular';
+}
+.font-Pacifico{
+    font-family: 'Pacifico';
 }
