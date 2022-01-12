@@ -14,16 +14,18 @@
                     <div>Endereo <%= empresa.endereco.logradouro%>, <%= empresa.endereco.numero%> </div>            
                     <div class="linhaBloco">CSOSN: <%= empresa.csosn.csosn %> - <%= empresa.csosn.descricao %>
                         <input type="hidden" value="<%= empresa.csosn.id %>" name="csons" id="codigoCsosn"> 
+                        <!-- <input type="hidden"  name="venda" id="objVenda"> 
+                        <input type="hidden"  name="items" id="objItems">  -->
                     </div>
                     <div class="linhaBloco">Natureza da Operação: 1 - Saída <input type="hidden" value="1" name="naturezaOperacao" id="natOp"> </div>
 
                     <div class="input-group">
                         <span class="input-group-text bg-color-ncm">TOTAL R$: </span>
-                        <input type="number" step="0.01" id="valorTotal" class="form-control estiloCampoTotal" readonly >
+                        <input type="number" step="0.01" id="valorTotal" name="totalTotal" class="form-control estiloCampoTotal" readonly >
                     </div>
 
                     <div>
-                        <form>
+                        <form method="post" enctype="multipart/form-data" >
                             <div class="input-group">
                                 <span class="input-group-text bg-color-ncm">QUANTIDADE</span>
                                 <input class="form-control" type="number" step="0.01" id="idQuantidade" name="quantidade"  autofocus required> 
@@ -82,6 +84,12 @@
     let items = []
  
     let total = 0.000
+
+    let quantidade = 0.00
+
+    let csosn = '<%=empresa.csosn.csosn%>'
+
+    let cfop = null
     
     if (total == 0){
 
@@ -106,10 +114,10 @@
                     })
                 }
             }
-            xhr.send()
-        
+            xhr.send()        
     }   
-    
+
+  
     function criarTabela(produto) {
 
     const tdCont = document.createElement('td')
@@ -126,7 +134,7 @@
     tdDescricao.innerHTML = produto.descricao
     tdDescricao.setAttribute("scope", "row")
     
-    let quantidade = document.getElementById("idQuantidade").value   
+    quantidade = document.getElementById("idQuantidade").value   
     // troca , por . 
     quantidade = quantidade.replace(/,/g, '.')
     const tdQuantidade = document.createElement('td')
@@ -171,9 +179,10 @@
     event.preventDefault()
 
     let codigo = document.getElementById("codigo").value   
+    let quantidade = document.getElementById("idQuantidade").value   
 
     ajax({
-        url: `http://localhost:3000/buscaProduto/?codigo=${codigo}`,
+        url: `http://localhost:3000/buscaProduto/?codigo=${codigo}&quantidade=${quantidade}`,
         metodo: "get",
         sucesso(resposta){
             const produto = JSON.parse(resposta)
@@ -184,17 +193,21 @@
             cont++  
             document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)
             venda.total = document.getElementById("valorTotal").value
-            
-            items.push({empresaId: venda.usuarioId, usuarioId: venda.usuarioId, produtoId: produto.id})
 
-            alerta()                      
+            // document.getElementById("objVenda").value = venda
+            
+            items.push({csosn: csosn, cfop: produto.cfop, quantidade: quantidade, total: total, empresaId: venda.usuarioId, usuarioId: venda.usuarioId, produtoId: produto.id })
+            
+            // document.getElementById("objItems").value = items
+
+            // alerta()     
+                    
         },
         erro(e) {
             const msg = document.createTextNode(`${e.code}: ${e.text}`)
             document.body.appendChild(msg)
         }
     })
-    
     }
 
 
@@ -223,14 +236,34 @@
         items = []
     }
 
+
+    function ajaxPost(config) {       
+
+        const xhr = new XMLHttpRequest()
+        xhr.open(config.metodo, config.url, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = e => {
+                if (xhr.status === 200) {
+                    config.sucesso(xhr.response)
+                } else if (xhr.status >= 400) {
+                    config.erro({
+                        code: xhr.status,
+                        text: xhr.statusText
+                    })
+                }
+            }
+
+            xhr.send(JSON.stringify( {venda:venda, items:items} ))
+    }   
+
+
     function finalizar(){
 
-        String(venda)
-        items.toString()
+        if ( venda !== null && items !== null ) {
 
-        ajax({
-        url: `http://localhost:3000/vendaFim/?venda=${venda}&items=${items}`,
-        metodo: "get",
+        ajaxPost({
+        url: "http://localhost:3000/vendaFim",
+        metodo: "post",
         sucesso(resposta){
                  
         },
@@ -239,7 +272,8 @@
             document.body.appendChild(msg)
         }
     })
-
+    cleanTable()
+    }
     }
 
     // Chamada da função buscaProduto ao precionar enter ou cleanTable ao precionar delete

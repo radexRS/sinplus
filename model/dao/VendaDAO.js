@@ -1,6 +1,8 @@
 const Empresa = require('../entity/Empresa')
 const Usuario = require('../entity/Usuario')
 
+const Venda = require('../entity/Venda')
+
 class VendaDAO{
 
     async create(total, usuarioId, empresaId) {

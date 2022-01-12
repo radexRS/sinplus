@@ -20,7 +20,7 @@ const Unidade = require('../entity/Unidade')
 const Produto = require('../entity/Produto')
 
 const Venda = require('../entity/Venda')
-const Itenvenda = require('../entity/Itenvenda')
+const Itemvenda = require('../entity/Itemvenda')
 
 
 const connection = new Sequelize('dbtcc', 'root', 'rada', {
@@ -49,7 +49,8 @@ Empuser.init(connection)
 Produto.init(connection)
 
 Venda.init(connection)
-// Itenvenda.init(connection)
+
+Itemvenda.init(connection)
 
 connection.sync({force: false})
 
