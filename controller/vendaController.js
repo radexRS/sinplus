@@ -47,12 +47,13 @@ routes.get('/buscaProduto', async (req, res) => {
     
 })
 
-routes.post('/vendaFim', async (req, res) => {
+routes.post('/vendaFim', autorizacao, empresa, async (req, res) => {
 
     let {venda, items} = req.body
-
+    let itemsvenda = []
     // console.log('Venda :', venda, 'Items: ', items)
     // console.log(Object.values(venda))
+    
     console.log("Venda: ",venda)
     console.log("Items: ", items)
 
@@ -67,6 +68,7 @@ routes.post('/vendaFim', async (req, res) => {
     parseFloat(items.quantidade)
     parseFloat(items.total)
 
+
 // Transaction
 
     const t = await sequelize.transaction();
@@ -78,49 +80,24 @@ routes.post('/vendaFim', async (req, res) => {
           usuarioId: venda.usuarioId,
           empresaId: venda.empresaId
         },{transaction: t})
+  
+
+
+        items.forEach(function(item){
+          itemsvenda.push( {csosn: item.csosn, cfop: item.cfop, quantidade: item.quantidade, total: item.total, vendaId: sale.id, empresaId: item.empresaId, usuarioId: item.usuarioId, produtoId: item.produtoId })
+
+        })
+
+
+        await Itemvenda.bulkCreate( itemsvenda,{transaction: t})
     
-      await Itemvenda.bulkCreate( [ { 
-          csosn: items.csosn,
-          cfop: items.cfop,
-          quantidade: items.quantidade,
-          total: items.total,
-          vendaId: sale.id,
-          empresaId: items.empresaId,
-          usuarioId: items.usuarioId,
-          produtoId: items.produtoId
-        }],{transaction: t})
-    
-         await t.commit()
-    
-        //  let empresaDAO = new EmpresaDAO()
-        //  let empresas = await empresaDAO.getAll()
-         
-        //  res.render('empresa/empresa', {empresas: empresas, msg: 'Empresa Cadastrada com Sucesso!', usuario: req.session.usuario })
-    
-        //  let csosnDAO = new CsosnDAO()
-        //  let csosns = await csosnDAO.getAll()
-    
-        //  res.render('empresa/empresa', {msg: 'Empresa Cadastrada com Sucesso!', csosns: csosns, usuario: req.session.usuario })
+        await t.commit()
     
       } catch (error) {
             await t.rollback()
-    
-            // let empresaDAO = new EmpresaDAO()
-            // let empresas = await empresaDAO.getAll() 
-            
-            // res.render('empresa/empresa', {empresas: empresas, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
-    
-            // let csosnDAO = new CsosnDAO()
-            // let csosns = await csosnDAO.getAll()
-       
-            // res.render('empresa/empresa', {msg: 'Dados não consistem, Verifique unicidade dos campos.', csosns: csosns, usuario: req.session.usuario })
             
           }
-
-
-
-
-    
+   
 
 })
 
