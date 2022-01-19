@@ -81,13 +81,10 @@ routes.post('/vendaFim', autorizacao, empresa, async (req, res) => {
           empresaId: venda.empresaId
         },{transaction: t})
   
-
-
         items.forEach(function(item){
           itemsvenda.push( {csosn: item.csosn, cfop: item.cfop, quantidade: item.quantidade, total: item.total, vendaId: sale.id, empresaId: item.empresaId, usuarioId: item.usuarioId, produtoId: item.produtoId })
 
         })
-
 
         await Itemvenda.bulkCreate( itemsvenda,{transaction: t})
     

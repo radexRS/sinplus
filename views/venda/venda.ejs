@@ -10,7 +10,7 @@
 
                 <div class="ladoEsquerdo">    
 
-                    <div>Empresa <%= empresa.razao%> - CNPJ <%= empresa.cnpj%></div>
+                    <div><%= empresa.id%> - Empresa <%= empresa.razao%> - CNPJ <%= empresa.cnpj%></div>
                     <div>Endereo <%= empresa.endereco.logradouro%>, <%= empresa.endereco.numero%> </div>            
                     <div class="linhaBloco">CSOSN: <%= empresa.csosn.csosn %> - <%= empresa.csosn.descricao %>
                         <!-- <input type="hidden" value="<%= empresa.csosn.id %>" name="csons" id="codigoCsosn"> 
@@ -78,8 +78,9 @@
     <script>
     
     let venda = {}    
+
     venda.usuarioId = '<%=usuario.id%>'
-    venda.empresaId = '<%=empresa.id%>'
+    venda.empresaId = '<%=empresa.id%>' 
 
     let items = []
 
@@ -189,9 +190,10 @@
         metodo: "get",
         sucesso(resposta){
             const produto = JSON.parse(resposta)
+
             criarTabela(produto)
             
-            items.push({csosn: csosn, cfop: produto.cfop, quantidade: quantidade, total: sub, empresaId: venda.usuarioId, usuarioId: venda.usuarioId, produtoId: produto.id })
+            items.push({csosn: csosn, cfop: produto.cfop, quantidade: quantidade, total: sub, empresaId: venda.empresaId, usuarioId: venda.usuarioId, produtoId: produto.id })
 
             document.getElementById("idQuantidade").value = ""
             document.getElementById("codigo").value = ""
@@ -199,14 +201,7 @@
             cont++  
             sub = 0
             document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)
-            venda.total = document.getElementById("valorTotal").value
-
-            // document.getElementById("objVenda").value = venda
-            
-            
-            // document.getElementById("objItems").value = items
-
-            // alerta()     
+            venda.total = document.getElementById("valorTotal").value 
                     
         },
         erro(e) {
@@ -238,7 +233,7 @@
         total = 0        
         document.getElementById("valorTotal").value = parseFloat(total).toFixed(2)     
         venda.total = document.getElementById("valorTotal").value
-        venda = {}
+        venda.total = 0.00
         items = []
     }
 
@@ -266,12 +261,11 @@
     function finalizar(){
 
         if ( venda !== null && items !== null ) {
-
+        
         ajaxPost({
         url: "http://localhost:3000/vendaFim",
         metodo: "post",
-        sucesso(resposta){
-            
+        sucesso(resposta){           
         },
         erro(e) {
             const msg = document.createTextNode(`${e.code}: ${e.text}`)
