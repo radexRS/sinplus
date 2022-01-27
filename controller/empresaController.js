@@ -187,8 +187,11 @@ try {
 
         let empresaDAO = new EmpresaDAO()
         let empresas = await empresaDAO.getAll() 
+
+        let csosnDAO = new CsosnDAO()
+        let csosns = await csosnDAO.getAll()
         
-        res.render('empresa/empresa', {empresas: empresas, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
+        res.render('empresa/nova', {empresas: empresas, csosns: csosns, msg: 'Dados não consistem, Verifique unicidade dos campos.', usuario: req.session.usuario })
 
         // let csosnDAO = new CsosnDAO()
         // let csosns = await csosnDAO.getAll()

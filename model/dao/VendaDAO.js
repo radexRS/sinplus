@@ -1,4 +1,5 @@
 const Empresa = require('../entity/Empresa')
+const Endereco = require('../entity/Endereco')
 const Usuario = require('../entity/Usuario')
 
 const Venda = require('../entity/Venda')
@@ -31,7 +32,7 @@ class VendaDAO{
 
     async getOne(id) {
         try{
-            return await Venda.findOne({ where: { id: id}, include: [{model: Usuario}, {model: Empresa}] })
+            return await Venda.findOne({ where: { id: id}, include: [{model: Usuario}, {model: Empresa, include: [ {model: Endereco} ] }] })
         }
         catch(error){
             return null

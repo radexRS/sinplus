@@ -1,10 +1,10 @@
 <%- include ('../partials/top') %>
-
+<%- include ('../partials/messageModal'); %>
 <header><%- include ('../partials/navbar') %></header>
 
-    <main class="">
+    <main id="principal" class="">
 
-        <form class="sale" action="">
+        <form id="vendas" class="sale" action="">
 
             <div class="principal">
 
@@ -120,6 +120,7 @@
             xhr.send()        
     }   
 
+
   
     function criarTabela(produto) {
 
@@ -213,7 +214,7 @@
 
 
 
-    function cleanTable (){
+    function cleanTable(){
 
     document.getElementById("corpo").outerHTML = ""
 
@@ -265,7 +266,10 @@
         ajaxPost({
         url: "http://localhost:3000/vendaFim",
         metodo: "post",
-        sucesso(resposta){           
+        sucesso(resposta){       
+            cleanTable()
+            const id = resposta
+            window.location.href = `http://localhost:3000/venda/cupom/?id=${id}`          
         },
         erro(e) {
             const msg = document.createTextNode(`${e.code}: ${e.text}`)
@@ -273,7 +277,7 @@
         }
     })
 }
-    cleanTable()
+    // cleanTable()
 }
 
     // Chamada da função buscaProduto ao precionar enter ou cleanTable ao precionar delete
@@ -292,18 +296,19 @@
     })
 
 
-// função para desabilitar a tecla F5.
-window.onkeydown = function (e) {
-if (e.keyCode === 116) {
-alert("Função não permitida");
-e.keyCode = 0;
-e.returnValue = false;
-return false;
-}
+    // função para desabilitar a tecla F5.
+    window.onkeydown = function (e) {
+    if (e.keyCode === 116) {
+    alert("Função não permitida");
+    e.keyCode = 0;
+    e.returnValue = false;
+    return false;
+    }
 
-}
+    }
 
-    function alerta(){ 
+
+    function alerta(venda){ 
         
         alert("Empresa Id: " + venda.empresaId + " - " + " Usuario Id" + venda.usuarioId + " - " + "Total: " + venda.total + "Items : " + items)   
     }

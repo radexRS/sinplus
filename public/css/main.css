@@ -274,6 +274,7 @@ form.sale {
 }
 .centro {
     text-align: center;
+    margin: 0 auto;
 }
 
 .listaItem {
@@ -311,6 +312,23 @@ form.sale {
     color: crimson;
 }
 
+.consulteSefaz {
+    display: none;
+    margin: 25px;
+}
+
+.tributacao {
+    display: none;
+}
+
+.linhaVenda {
+    display: flex;
+    justify-content: space-between;
+}
+.qrcode {
+    display: none;
+    justify-content: center;
+}
 
 /* Fim Vendas */
 

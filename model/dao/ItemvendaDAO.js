@@ -3,6 +3,7 @@ const Empresa = require('../entity/Empresa')
 const Endereco = require('../entity/Endereco')
 const Usuario = require('../entity/Usuario')
 const Produto = require('../entity/Produto')
+const Unidade = require('../entity/Unidade')
 const Csosn = require('../entity/Csosn')
 
 const Itemvenda = require('../entity/Itemvenda')
@@ -45,9 +46,9 @@ async getOne(id) {
 
 
 
-async getAll() {
+async getAll(id) {
     try{
-            return await Itemvenda.findAll( { include: [ {model: Empresa}, {model: Usuario}, {model: Produto} ] })
+            return await Itemvenda.findAll( {where: {vendaId: id}, include: [ {model: Empresa}, {model: Usuario}, {model: Produto, include: [ {model: Unidade}] } ] })
     }
     catch(error){
         return null

@@ -49,10 +49,13 @@ routes.get('/buscaProduto', async (req, res) => {
 
 routes.post('/vendaFim', autorizacao, empresa, async (req, res) => {
 
+
     let {venda, items} = req.body
     let itemsvenda = []
-    // console.log('Venda :', venda, 'Items: ', items)
-    // console.log(Object.values(venda))
+
+    let id = 0
+
+    let dados = {}
     
     console.log("Venda: ",venda)
     console.log("Items: ", items)
@@ -80,21 +83,59 @@ routes.post('/vendaFim', autorizacao, empresa, async (req, res) => {
           usuarioId: venda.usuarioId,
           empresaId: venda.empresaId
         },{transaction: t})
+
+        // venda = sale
+        id = sale.id
   
         items.forEach(function(item){
           itemsvenda.push( {csosn: item.csosn, cfop: item.cfop, quantidade: item.quantidade, total: item.total, vendaId: sale.id, empresaId: item.empresaId, usuarioId: item.usuarioId, produtoId: item.produtoId })
 
         })
 
+        dados.venda = sale
+        dados.items = itemsvenda
+
         await Itemvenda.bulkCreate( itemsvenda,{transaction: t})
-    
         await t.commit()
-    
-      } catch (error) {
-            await t.rollback()
-            
-          }
    
+        // return res.json(id)
+        //return res.render('venda/cupom', {msg: '', usuario: req.session.usuario, empresa: req.session.empresa, sale: sale, itemsvenda: itemsvenda})
+        
+        // let vendaDAO = new VendaDAO()
+        // let dadosvenda = await vendaDAO.getOne(id)  
+        // console.log("Dados Venda: ", dadosvenda)
+        
+        // let itemvendaDAO = new ItemvendaDAO()
+        // let dadositems = await itemvendaDAO.getAll(id)
+        // console.log("Dados Items: ", dadositems)
+        
+        return res.json(id)
+        //return res.render('venda/cupom', {msg: '', usuario: req.session.usuario, dadosvenda: dadosvenda, dadositems: dadositems})        
+
+        
+      } catch (error) {
+        await t.rollback()
+        
+      }
+
+      
+})
+
+
+routes.get('/venda/cupom', autorizacao, async (req, res) => {
+
+  let id = req.query.id
+
+  let vendaDAO = new VendaDAO()
+  let dadosvenda = await vendaDAO.getOne(id)  
+  console.log("Dados Venda: ", dadosvenda)
+  
+  let itemvendaDAO = new ItemvendaDAO()
+  let dadositems = await itemvendaDAO.getAll(id)
+  console.log("Dados Items: ", dadositems)
+  
+  return res.render('venda/cupom', {msg: '', usuario: req.session.usuario, dadosvenda: dadosvenda, dadositems: dadositems})
+
 
 })
 
